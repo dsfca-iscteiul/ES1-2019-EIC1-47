@@ -19,11 +19,14 @@ public class InterfaceUser {
 	private JPanel center;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
+		InterfaceUser menu = new InterfaceUser();
+		menu.open();
+		
 	}
 
 	public InterfaceUser() {
+		
 		frame = new JFrame("Menu");
 		frame.setLayout(new BorderLayout());
 		
@@ -46,10 +49,12 @@ public class InterfaceUser {
 	}
 	
 	private void open(){
+		
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setSize(500, 500);
 		frame.setResizable(false);
 		frame.setVisible(true);
+		
 	}
 
 }
