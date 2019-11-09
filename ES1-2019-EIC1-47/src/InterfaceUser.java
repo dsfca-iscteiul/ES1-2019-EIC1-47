@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
 public class InterfaceUser {
 	
@@ -16,6 +17,11 @@ public class InterfaceUser {
 	private Button editThresholds;
 	private Button testPlatform;
 	private JPanel center;
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
 
 	public InterfaceUser() {
 		frame = new JFrame("Menu");
@@ -29,16 +35,21 @@ public class InterfaceUser {
 		showFile = new Button("Show file");
 		editThresholds = new Button("Edit thresholds");
 		testPlatform = new Button("Show results");
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
-		//teste Git
-		//teste git2
-		//teste git3
-		//teste git4
-
+		center.add(openFile);
+		center.add(showFile);
+		center.add(editThresholds);
+		center.add(testPlatform);
+		
+		frame.add(menu, BorderLayout.NORTH);
+		frame.add(center, BorderLayout.CENTER);
+	}
+	
+	private void open(){
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setSize(500, 500);
+		frame.setResizable(false);
+		frame.setVisible(true);
 	}
 
 }
