@@ -29,6 +29,16 @@ public class LogicParser {
 		return currentStatus;
 	}
 	
+	public boolean compare(boolean a, boolean b) throws Exception {
+		switch (currentStatus) {
+			case 0: return  (a && b);
+			case 1: return  (a || b);
+			case 2: return !(a && b);
+			case 3: return !(a || b);
+		}
+		throw new Exception();
+	}
+	
 	@Override
 	public String toString() {
 		switch (currentStatus) {

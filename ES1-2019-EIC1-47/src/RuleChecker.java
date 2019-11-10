@@ -17,28 +17,9 @@ public class RuleChecker {
 	}
 	
 	public boolean featureEnvyCheck(int AFTD, float LAA, int AFTDLimit, int LAALimit, LogicParser logic) throws Exception {
-		switch (logic.getCurrentStatus()) {
-			case 0: // AND
-				if (AFTD > AFTDLimit && LAA < LAALimit)
-					return true;
-				return false;
-	
-			case 1: // OR
-				if (AFTD > AFTDLimit || LAA < LAALimit)
-					return true;
-				return false;
-	
-			case 2: // NAND
-				if (!(AFTD > AFTDLimit && LAA < LAALimit))
-					return true;
-				return false;
-	
-			case 3: // NOR
-				if (!(AFTD > AFTDLimit || LAA < LAALimit))
-					return true;
-				return false;
-		}
-		throw new Exception();
+		if (logic.compare((AFTD > AFTDLimit), (LAA < LAALimit)))
+			return true;
+		return false;
 	}
 
 	// Preset do long method, caso o utilizador não especifique valores
@@ -53,29 +34,11 @@ public class RuleChecker {
 		return longMethodCheck(LOC, CYCLO, LOCLimit, CYCLOLimit, new LogicParser("AND"));
 	}
 	
+	
 	public boolean longMethodCheck(int LOC, int CYCLO, int LOCLimit, int CYCLOLimit, LogicParser logic) throws Exception {
-		switch (logic.getCurrentStatus()) {
-			case 0: // AND
-				if (LOC > LOCLimit && CYCLO > CYCLOLimit)
-					return true;
-				return false;
-	
-			case 1: // OR
-				if (LOC > LOCLimit || CYCLO > CYCLOLimit)
-					return true;
-				return false;
-	
-			case 2: // NAND return !long
-				if (!(LOC > LOCLimit && CYCLO > CYCLOLimit))
-					return true;
-				return false;
-	
-			case 3: // NOR
-				if (!(LOC > LOCLimit || CYCLO > CYCLOLimit))
-					return true;
-				return false;
-		}
-		throw new Exception();
+		if (logic.compare((LOC > LOCLimit), (CYCLO > CYCLOLimit)))
+			return true;
+		return false;
 	}
 
 }
