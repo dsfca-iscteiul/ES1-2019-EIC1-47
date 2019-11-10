@@ -1,5 +1,10 @@
-
 public class LogicParser {
+	/*
+		Esta classe serve para interpretar do resultado do input
+		do utilizador na interface gráfica, para que o RuleChecker consiga
+		diferenciar qual regra correr.
+	*/
+	
 	public static final int AND  = 0;
 	public static final int OR   = 1;
 	public static final int NAND = 2;
@@ -13,10 +18,11 @@ public class LogicParser {
 	}
 	
 	LogicParser(String i) throws Exception{
-		if(i.equalsIgnoreCase("AND"))  currentStatus = 0;
+		if(i.equalsIgnoreCase("AND"))       currentStatus = 0;
 		else if(i.equalsIgnoreCase("OR"))   currentStatus = 1;
 		else if(i.equalsIgnoreCase("NAND")) currentStatus = 2;
 		else if(i.equalsIgnoreCase("NOR"))  currentStatus = 3;
+		else throw new Exception();
 	}
 	
 	public int getCurrentStatus() {
@@ -33,5 +39,4 @@ public class LogicParser {
 		}
 		return "NOT SET";
 	}
-	
 }
