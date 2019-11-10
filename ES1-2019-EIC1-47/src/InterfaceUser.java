@@ -78,27 +78,31 @@ public class InterfaceUser {
 		
 		openFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//adicionar método de acção do botão
+				//adicionar mï¿½todo de acï¿½ï¿½o do botï¿½o
 			}
 		});
 		
 		showFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//adicionar método de acção do botão
+				//adicionar mï¿½todo de acï¿½ï¿½o do botï¿½o
 			}
 		});
 		
+
 		editThresholds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//adicionar método de acção do botão
+				InterfaceUser_thresholds ui=new InterfaceUser_thresholds();
+				ui.open();
 			}
 		});
 		
 		testPlatform.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//adicionar método de acção do botão
+				//adicionar mï¿½todo de acï¿½ï¿½o do botï¿½o
 			}
 		});
+		
+
 	}
 	
 	private void open(){
