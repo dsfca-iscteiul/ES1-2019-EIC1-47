@@ -1,11 +1,11 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -75,6 +75,30 @@ public class InterfaceUser {
 		
 		frame.add(menu, BorderLayout.NORTH);
 		frame.add(center, BorderLayout.CENTER);
+		
+		openFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//adicionar método de acção do botão
+			}
+		});
+		
+		showFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//adicionar método de acção do botão
+			}
+		});
+		
+		editThresholds.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//adicionar método de acção do botão
+			}
+		});
+		
+		testPlatform.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//adicionar método de acção do botão
+			}
+		});
 	}
 	
 	private void open(){
