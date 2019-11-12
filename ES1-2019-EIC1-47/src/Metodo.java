@@ -49,23 +49,28 @@ public class Metodo {
 				//if cell is a numeric format
 				case NUMERIC:
 					System.out.println(cell.getNumericCellValue() + "\t\t");
+					break;
 				//if cell is a string format	
 				case STRING:
 					System.out.println(cell.getStringCellValue() + "\t\t");
-				default:
-					System.out.println();
 					break;
-				}
+				case BOOLEAN:
+					System.out.println(cell.getBooleanCellValue() + "\t");
+					break;
+				default:
 			}
 			System.out.println();
+            }
+        }
+	}
+}
 		
 		
 		
 		
 		
 		
-		
-		
+			
 		
 		
 		
@@ -97,7 +102,7 @@ public class Metodo {
 //				}
 //			}
 //			System.out.println();
-		}
+
 
 //	//Iterate through each rows from first sheet
 //	@SuppressWarnings("unchecked")
@@ -113,5 +118,5 @@ public class Metodo {
 //			
 //			}
 //		}
-	}
-}
+	
+
