@@ -8,43 +8,76 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
-public class InterfaceUser_thresholds {
+public class InterfaceUser_thresholds extends Thread{
 	
 	private JFrame frame;
 	private JPanel zona1;
 	private JPanel zona2;
-	private JTextField logicsym;
-	private String [] listRules;
-	private int nextPos;
+	private JTextField logicsym; //variavel do simbolo logico
+	private DefaultListModel <String> listRules;
+	private DefaultListModel <String> listRulesAux;
 	private String selectedComboBox;
+	private String selectedButtonR;
+	private int pos;
+	private static final String lm = "is_long_method";
+	private static final String fe = "is_feature_envy";
+	
 	
 
 	
+	/**DESCRICAO CLASSE:
+	 * 
+	 * GUI DIVIDIDA EM 2 PARTES: LADO ESQUERDO-"CRIAR REGRA"(ZONA1), LADO DIREITO-"TESTAR REGRA"(ZONA2)
+	 * 
+	 * FUNCOES:
+	 * 
+	 * panelZona1() - implementa configuracoes visuais da zona 1
+	 * 				  chama: action Listener ComboBox -alComboBox(..)
+	 * 					     action Listener Botao Adicionar Regra -alAddRule(..) TOMÁS ADICIONAR VERIFICACOES PARA O "SIMBOLO LOGICO" INTROD. PELO USER
+	 * 
+	 * panelZona2() - implementa configuracoes visuais da zona 2
+	 * 
+	 * listRules -> lista com todo o conteudo que aparece na JList da zona 2
+	 */
+	
+	
+	
+	
 	public InterfaceUser_thresholds() {
-		selectedComboBox = "";
-		listRules = new String[15];
-		listRules[0]="iPlasma;;;;is_long_method";
-		listRules[1]="PMD;;;;is_long_method";
-		nextPos = 2;
+		
+		selectedComboBox = lm;
+		selectedButtonR = lm;
+		listRules = new DefaultListModel<>();
+		listRules.addElement("iPlasma"+" ; "+ lm);
+		listRules.addElement("PMD" + " ; " + lm);
+		listRulesAux = new DefaultListModel<>();
+		pos=2;
+		
+		
 		zona1 = new JPanel();
 		zona1.setLayout(new BorderLayout());
-		zona1.setBorder(BorderFactory.createEmptyBorder(30, 20, 20, 20));
+		zona1.setBorder(BorderFactory.createEmptyBorder(60, 20, 80, 30));
 		zona2 = new JPanel();
-		zona2.setLayout(new GridLayout(5,1));
+		zona2.setLayout(new BorderLayout());
+		zona2.setBorder(BorderFactory.createEmptyBorder(30, 20, 20, 20));
 		frame = new JFrame();
 		frame.setLayout(new GridLayout(1,2));
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addFrameContent();
-		frame.setSize(600, 300);
+		frame.setSize(700, 400);
 		frame.setLocation(500, 100);
 		
 	}
@@ -103,6 +136,8 @@ public class InterfaceUser_thresholds {
 		alAddRule(add, nametext, metric1text, metric2text, logicsym);
 	}
 	
+	
+	
 	/*ACTION LISTENER DA COMBOBOX*/
 	private void alComboBox(JComboBox<String> cb, JLabel m1, JLabel m2){
 		
@@ -114,12 +149,12 @@ public class InterfaceUser_thresholds {
 					case "LOC CYCLO":
 						m1.setText("LOC >");
 						m2.setText("CYCLO >");
-						selectedComboBox="is_long_method";
+						selectedComboBox = lm;
 					break;
 					case "ATFD LAA":
 						m1.setText("ATFD >");
 						m2.setText("LAA <");
-						selectedComboBox="is_feature_envy";
+						selectedComboBox = fe;
 					break;
 				default:
 					System.out.println("Sem opcao selecionada"); /*RESOLVER NICAS*/
@@ -130,21 +165,29 @@ public class InterfaceUser_thresholds {
 	
 	
 	
+	
 	/*ACTION LISTENER DO BOTAO ADD RULE*/
 	private void alAddRule(Button b, JTextField name, JTextField m1, JTextField m2, JTextField logicsym){
 	
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-/*ADICIONAR VERIFICACAO SIMBOLO LOGICO*/				
+				
 				if(!name.getText().equals("") && checkIfNumber(m1) && checkIfNumber(m2)){
-					listRules[nextPos] = name+";"+m1+";"+logicsym+";"+m2+";"+selectedComboBox;
-					nextPos++;
+					listRules.addElement(name.getText() + " ; " + m1.getText() + ";" + logicsym.getText() + ";" + m2.getText() + " ; "+selectedComboBox);
+					pos++;
+					updateButtonR();
 				}else{
-					/*NICAS ADD EXCECAO*/
+					/*NICAS:
+					 *  ADD EXCECAO-aparecer e desaparecer msg de texto
+					 *  tornar estatico os valor is_feature_envy e is_l....-feito
+					 *	criar funcao so para adicionar elementos à lista
+					 * 	melhorar verificacao de numeros
+					 */
 				}
 			}
 		});
 	}
+	
 	
 	
 	/*FUNCAO AUXILIAR: VERIFICAR SE O CONTEUDO TEXTFIELD É UM NUMERO*/
@@ -159,29 +202,84 @@ public class InterfaceUser_thresholds {
 		return false;
 	}
 	
+	
 	/*CONTEUDO PAINEL ZONA2*/
 	private void panelZona2(){
-		JLabel compare = new JLabel("Compare:");
-		JRadioButton r1 = new JRadioButton("is_long_method");
-		JRadioButton r2 = new JRadioButton("is_feature_envy");
-		JLabel with = new JLabel("With rule:");
-		JList<String> list = new JList<String>(listRules);
-		Button makeComparisson = new Button("Compare");
 		
+		JLabel compare = new JLabel("Compare:");
+		JLabel with = new JLabel("With rule:");
+		JList<String> list = new JList<String>(listRulesAux);
+		JRadioButton r1 = new JRadioButton(lm);
+		JRadioButton r2 = new JRadioButton(fe);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(r1);
+		bg.add(r2);
+		r1.setSelected(true);
+		updateButtonR();
+		Button makeComparisson = new Button("Compare");
+		Button close = new Button ("Close");
+		
+		JPanel p9 = new JPanel();
+		p9.setLayout(new GridLayout(3,1));
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(2,1));
+		JPanel p8 = new JPanel();
+		p8.setLayout(new GridLayout(1,2));
 		
-		zona2.add(compare);
-		zona2.add(p1);
-		zona2.add(with);
-		zona2.add(list);
-		zona2.add(makeComparisson);
+		zona2.add(compare, BorderLayout.NORTH);
+		p9.add(p1);
+		p9.add(with);
+		p9.add(list);
+		zona2.add(p9, BorderLayout.CENTER);
+		zona2.add(p8, BorderLayout.SOUTH);
+		p8.add(close);
+		p8.add(makeComparisson);
 		
 		p1.add(r1);
 		p1.add(r2);
+		
+		alButtons(r1, r2, list);
+		alClose(close);
 	}
 	
-
+	
+	/*ACTION LISTENER DOS RADIOBUTTONS R1 E R2 - SEMPRE QUE É CLICADO APENAS MOSTRA NA JLIST AS REGRAS DO BOTAO CORRESPONDENTE*/
+	private void alButtons(JRadioButton r1, JRadioButton r2, JList<String> l){
+		r1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				selectedButtonR = lm;
+				updateButtonR();
+				
+			}
+		});
+		r2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				selectedButtonR = fe;
+				updateButtonR();
+				
+			}
+		});
+	}
+	
+	private void updateButtonR(){
+		listRulesAux.removeAllElements();
+		for(int a=0; a<pos; a++){
+			if(listRules.elementAt(a).contains(selectedButtonR)){
+				listRulesAux.addElement(listRules.elementAt(a));
+			}
+		}
+	}
+	
+	/*ACTION LISTENER BOTAO CLOSE*/
+	private void alClose(Button close){
+		close.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				frame.dispose();
+			}
+		});
+	}
+	
 	public static void main(String[] args) {
 		InterfaceUser_thresholds ui=new InterfaceUser_thresholds();
 		ui.open();
