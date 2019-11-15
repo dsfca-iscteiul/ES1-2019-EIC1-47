@@ -1,21 +1,10 @@
-import java.awt.List;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 	
@@ -48,14 +37,14 @@ public class Metodo {
                 switch(cell.getCellType()) {
 				//if cell is a numeric format
 				case NUMERIC:
-					System.out.println(cell.getNumericCellValue() + "\t\t");
+					System.out.print(cell.getNumericCellValue() + "\t\t");
 					break;
 				//if cell is a string format	
 				case STRING:
-					System.out.println(cell.getStringCellValue() + "\t\t");
+					System.out.print(cell.getStringCellValue() + "\t\t");
 					break;
 				case BOOLEAN:
-					System.out.println(cell.getBooleanCellValue() + "\t");
+					System.out.print(cell.getBooleanCellValue() + "\t");
 					break;
 				default:
 			}
