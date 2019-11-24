@@ -2,6 +2,8 @@ import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -15,13 +17,16 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
 public class LeituraFicheiro extends JPanel{
 	JTable jt;
+	private static ArrayList<Metodo> dados = new ArrayList<Metodo>();
+
 
 
 	// construtor
 	public LeituraFicheiro() {
-		
+
 	}
 
 	//metodo para criar um fileChooser(que nos da opcao para escolher o ficheiro)
@@ -76,7 +81,7 @@ public class LeituraFicheiro extends JPanel{
 						columns[count] =  cell.getStringCellValue();
 					}else {
 						linha[count] = cell.getStringCellValue();
-						//System.out.print(cell.getStringCellValue()+"\t\t");
+						//Systeem.out.print(cell.getStringCellValue()+"\t\t");
 					}
 					count++;
 					break;
@@ -134,9 +139,66 @@ public class LeituraFicheiro extends JPanel{
 
 		JScrollPane jps = new JScrollPane(jt);
 		add(jps);
+		createList(sheet);
+	}
+
+
+
+
+	public static void createList(XSSFSheet sheet) {
+		Iterator<Row> rowIterator = sheet.iterator();
+
+		// Traversing over each row of XLSX file
+		while (rowIterator.hasNext()) {
+			Row row = rowIterator.next();
+
+			Metodo metodo = new Metodo();
+			dados.add(metodo);
+			if(row.getRowNum()==0) {
+				dados.remove(metodo);
+			}
+
+			// For each row, iterate through each columns
+			Iterator<Cell> cellIterator = row.cellIterator();
+			while (cellIterator.hasNext()) {
+
+				Cell cell = cellIterator.next();
+				if(row.getRowNum()>0) {
+
+					switch(cell.getColumnIndex()) {
+					//if cell is a numeric format
+					case 0:
+						metodo.setMethodID(cell.getNumericCellValue());
+
+						break;
+						//if cell is a string format	
+					case 1:
+						metodo.setPackage1(cell.getStringCellValue());;
+
+						break;
+					case 2:
+						metodo.setClass1(cell.getStringCellValue());
+						break;
+					case 3:
+						metodo.setMethod(cell.getStringCellValue());
+						break;
+					default:
+					}
+				}
+				System.out.println();
+			}
+		}
+		System.out.println(dados);
 	}
 
 
 	// Creates Window
-	
+
 }
+
+
+
+
+
+
+
