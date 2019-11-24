@@ -182,6 +182,30 @@ public class LeituraFicheiro extends JPanel{
 					case 3:
 						metodo.setMethod(cell.getStringCellValue());
 						break;
+					case 4:
+						metodo.setloc(cell.getNumericCellValue());
+						break;
+					case 5:
+						metodo.setCyclo (cell.getNumericCellValue() ) ;
+						break;
+					case 6:
+						metodo.setAtfd(cell.getNumericCellValue());
+						break;
+//					case 7:
+//						metodo.setLaa(cell.getNumericCellValue());
+//						break;
+					case 8:
+						metodo.setIs_long_method(cell.getBooleanCellValue() );
+						break;
+					case 9:
+						metodo.setiPlasma(cell.getBooleanCellValue() );
+						break;
+					case 10:
+						metodo.setPMD(cell.getBooleanCellValue() );
+						break;
+					case 11:
+						metodo.setIs_feature_envy(cell.getBooleanCellValue() );
+						break;
 					default:
 					}
 				}

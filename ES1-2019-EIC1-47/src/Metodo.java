@@ -25,9 +25,9 @@ public class Metodo {
 	private String package1;
 	private String class1;
 	private String method;
-	private int loc;
-	private int cyclo;
-	private int atfd;
+	private double loc;
+	private double cyclo;
+	private double atfd;
 	private double laa;
 	private boolean is_long_method;
 	private boolean iPlasma;
@@ -35,25 +35,14 @@ public class Metodo {
 	private boolean is_feature_envy;
 	
 	
-		public int getCyclo() {
-		return cyclo;
+	
+
+
+	
+	
+	public void setloc(double loc) {
+		this.loc = loc;
 	}
-
-
-	public void setCyclo(int cyclo) {
-		this.cyclo = cyclo;
-	}
-
-
-	public int getAtfd() {
-		return atfd;
-	}
-
-
-	public void setAtfd(int atfd) {
-		this.atfd = atfd;
-	}
-
 
 	public boolean isiPlasma() {
 		return iPlasma;
@@ -78,7 +67,7 @@ public class Metodo {
 		@Override
 	public String toString() {
 		return "Metodo [methodID=" + methodID + ", package1=" + package1 + ", class1=" + class1 + ", method=" + method
-				+ "]";
+				+ ", loc="+ loc + ", cyclo" + cyclo+  ", atf"+ atfd+  "]";
 	}
 
 	
@@ -98,6 +87,8 @@ public class Metodo {
 	public String getPackage1() {
 		return package1;
 	}
+	
+	
 
 	public void setPackage1(String package1) {
 		this.package1 = package1;
@@ -117,5 +108,53 @@ public class Metodo {
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	public double getLoc() {
+		return loc;
+	}
+
+	public void setLoc(double loc) {
+		this.loc = loc;
+	}
+
+	public double getCyclo() {
+		return cyclo;
+	}
+
+	public void setCyclo(double cyclo) {
+		this.cyclo = cyclo;
+	}
+
+	public double getAtfd() {
+		return atfd;
+	}
+
+	public void setAtfd(double atfd) {
+		this.atfd = atfd;
+	}
+
+	public double getLaa() {
+		return laa;
+	}
+
+	public void setLaa(double laa) {
+		this.laa = laa;
+	}
+
+	public boolean isIs_long_method() {
+		return is_long_method;
+	}
+
+	public void setIs_long_method(boolean is_long_method) {
+		this.is_long_method = is_long_method;
+	}
+
+	public boolean isPMD() {
+		return PMD;
+	}
+
+	public void setPMD(boolean pMD) {
+		PMD = pMD;
 	}
 }
