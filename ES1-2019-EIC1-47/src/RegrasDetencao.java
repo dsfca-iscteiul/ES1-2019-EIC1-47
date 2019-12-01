@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class RegrasDetencao {
 	private ArrayList<Metodo>lista;
 	private RuleChecker rc = new RuleChecker();
@@ -37,4 +36,50 @@ public class RegrasDetencao {
 										//perguntar este int
 		} 
 	}
+	public void DCI() {
+		lista = LeituraFicheiro.getDados();
+		for(Metodo m: lista) {
+			if((m.isPMD() || m.isiPlasma()) && m.isIs_long_method())
+				System.out.println("m = " + m);
+
+		}
+	}
+	public void DII() {
+		//lista com a serializacao dos dados do excel
+		lista = LeituraFicheiro.getDados();
+		//percorre os metodos
+		for(Metodo m: lista) {
+			if((m.isPMD() || m.isiPlasma())
+					!= m.isIs_long_method()) 
+				System.out.println("m = " + m);
+		}
+	}
+	public void ADCI() {
+		//lista com a serializacao dos dados do excel
+		lista = LeituraFicheiro.getDados();
+		//percorre os metodos
+		for(Metodo m: lista) {
+			if((m.isPMD() || m.isiPlasma())
+					&& m.isIs_long_method()) 
+				System.out.println("m = " + m);
+		}
+	}
+	public void ADII() {
+		//lista com a serializacao dos dados do excel
+		lista = LeituraFicheiro.getDados();
+		//percorre os metodos
+		for(Metodo m: lista) {
+			if((m.isPMD() || m.isiPlasma())
+					!= m.isIs_long_method()) 
+				System.out.println("m = " + m);
+		}
+	}
+	
 }
+
+
+
+
+
+
+
