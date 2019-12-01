@@ -1,3 +1,5 @@
+
+
 import java.awt.Dimension;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +23,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class LeituraFicheiro extends JPanel{
 	JTable jt;
 	private static ArrayList<Metodo> dados = new ArrayList<Metodo>();
+	public static ArrayList<Metodo> getDados() {
+		return dados;
+	}
+
+
+	private FileInputStream fis;
 
 
 
@@ -49,7 +57,7 @@ public class LeituraFicheiro extends JPanel{
 		// 2D array is used for data in table
 		String[][] linhas = new String[421][];
 
-		FileInputStream fis= new FileInputStream(openFile());
+		fis= new FileInputStream(openFile());
 		XSSFWorkbook wb= new XSSFWorkbook(fis);
 		XSSFSheet sheet= wb.getSheetAt(0);
 		File file = new File("Method.txt");
@@ -145,7 +153,11 @@ public class LeituraFicheiro extends JPanel{
 
 
 
-	public static void createList(XSSFSheet sheet) {
+	public FileInputStream getFis() {
+		return fis;
+	}
+
+	public static ArrayList<Metodo> createList(XSSFSheet sheet) {
 		Iterator<Row> rowIterator = sheet.iterator();
 
 		// Traversing over each row of XLSX file
@@ -166,12 +178,9 @@ public class LeituraFicheiro extends JPanel{
 				if(row.getRowNum()>0) {
 
 					switch(cell.getColumnIndex()) {
-					//if cell is a numeric format
 					case 0:
 						metodo.setMethodID(cell.getNumericCellValue());
-
 						break;
-						//if cell is a string format	
 					case 1:
 						metodo.setPackage1(cell.getStringCellValue());;
 
@@ -209,15 +218,10 @@ public class LeituraFicheiro extends JPanel{
 					default:
 					}
 				}
-				System.out.println();
 			}
 		}
-		System.out.println(dados);
+		return dados;
 	}
-
-
-	// Creates Window
-
 }
 
 

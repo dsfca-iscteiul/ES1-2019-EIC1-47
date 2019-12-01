@@ -8,7 +8,10 @@ public class testef {
 		// TODO Auto-generated method stub
 			JFrame j = new JFrame("Ficheiro");
 			LeituraFicheiro t = new LeituraFicheiro();
+			RegrasDetencao rd = new RegrasDetencao();
+			
 			t.CorreFicheiro();
+			rd.Verificacao();
 			j.setSize(500, 500);
 			j.setVisible(true);
 			j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
