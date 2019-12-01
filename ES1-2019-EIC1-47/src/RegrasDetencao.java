@@ -12,7 +12,8 @@ public class RegrasDetencao {
 		//percorre os metodos
 		for(Metodo m: lista) {
 			rc.featureEnvyCheck((int)m.getAtfd(), (float)m.getLaa());
-			rc.longMethodCheck((int)m.getLoc(), (float)m.getCyclo());		
+			rc.longMethodCheck((int)m.getLoc(), (float)m.getCyclo());
+			System.out.println("FeatureEnvyCheck = " + rc.featureEnvyCheck((int)m.getAtfd(), (float)m.getLaa()) + " LongMethodCheck = " + rc.longMethodCheck((int)m.getLoc(), (float)m.getCyclo()));
 		}
 	}
 	// verificao do feature envy e long method, com dados postos pelo utilizador
@@ -34,6 +35,6 @@ public class RegrasDetencao {
 			rc.featureEnvyCheck((int)m.getAtfd(), (float)m.getLaa(), ATFDLimit, CYCLOLimit,lp);
 			rc.longMethodCheck((int)m.getLoc(), (int)m.getCyclo(),LOCLimit,CYCLOLimit,lp);		
 										//perguntar este int
-		}
+		} 
 	}
 }
