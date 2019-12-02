@@ -40,7 +40,7 @@ public class RegrasDetencao {
 		lista = LeituraFicheiro.getDados();
 		for(Metodo m: lista) {
 			if((m.isPMD() || m.isiPlasma()) && m.isIs_long_method())
-				System.out.println("m = " + m);
+				System.out.println("DCI = " + m);
 
 		}
 	}
@@ -49,9 +49,8 @@ public class RegrasDetencao {
 		lista = LeituraFicheiro.getDados();
 		//percorre os metodos
 		for(Metodo m: lista) {
-			if((m.isPMD() || m.isiPlasma())
-					!= m.isIs_long_method()) 
-				System.out.println("m = " + m);
+			if((m.isPMD() || m.isiPlasma()) && !m.isIs_long_method()) 
+				System.out.println("DII =  " + m);
 		}
 	}
 	public void ADCI() {
@@ -59,9 +58,8 @@ public class RegrasDetencao {
 		lista = LeituraFicheiro.getDados();
 		//percorre os metodos
 		for(Metodo m: lista) {
-			if((m.isPMD() || m.isiPlasma())
-					&& m.isIs_long_method()) 
-				System.out.println("m = " + m);
+			if((!m.isPMD() || !m.isiPlasma()) && m.isIs_long_method()) 
+				System.out.println("ADCI = " + m);
 		}
 	}
 	public void ADII() {
@@ -69,9 +67,8 @@ public class RegrasDetencao {
 		lista = LeituraFicheiro.getDados();
 		//percorre os metodos
 		for(Metodo m: lista) {
-			if((m.isPMD() || m.isiPlasma())
-					!= m.isIs_long_method()) 
-				System.out.println("m = " + m);
+			if((!m.isPMD() || !m.isiPlasma()) && !m.isIs_long_method()) 
+				System.out.println("ADII = " + m);
 		}
 	}
 	

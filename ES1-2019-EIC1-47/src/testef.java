@@ -12,6 +12,10 @@ public class testef {
 			
 			t.CorreFicheiro();
 			rd.Verificacao();
+			rd.ADCI();
+			rd.ADII();
+			rd.DCI();
+			rd.DII();
 			j.setSize(500, 500);
 			j.setVisible(true);
 			j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
