@@ -148,7 +148,9 @@ public class LeituraFicheiro extends JPanel{
 	public FileInputStream getFis() {
 		return fis;
 	}
-
+	public ArrayList<Metodo> createList(){
+		return createList(sheet);
+	}
 	public static ArrayList<Metodo> createList(XSSFSheet sheet) {
 		Iterator<Row> rowIterator = sheet.iterator();
 

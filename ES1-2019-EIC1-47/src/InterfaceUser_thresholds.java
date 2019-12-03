@@ -5,7 +5,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -225,7 +227,18 @@ public class InterfaceUser_thresholds {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(file==null) file = new LeituraFicheiro().openFile();
+				LeituraFicheiro a = new LeituraFicheiro();
+				if(file==null) file = a.openFile();
+				try {
+					a.CorreFicheiro();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ArrayList<Metodo> ar = a.createList();
+				for (Metodo m: ar) {
+					System.out.println(listRulz[list.getSelectedIndex()].runRule((int)m.getLoc(), (int)m.getCyclo()));
+				}
 				System.out.println(listRulz[list.getSelectedIndex()].runRule(1, 2));
 				System.out.println(listRulz[list.getSelectedIndex()].toString());
 			}
@@ -248,7 +261,6 @@ public class InterfaceUser_thresholds {
 	public static void main(String[] args) {
 		InterfaceUser_thresholds ui=new InterfaceUser_thresholds();
 		ui.open();
-
 	}
 
 }
