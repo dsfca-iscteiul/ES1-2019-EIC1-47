@@ -16,10 +16,11 @@ public class testef {
 			rd.ADII();
 			rd.DCI();
 			rd.DII();
-			j.setSize(500, 500);
+			j.setSize(775, 655);
 			j.setVisible(true);
 			j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			j.add(t);
+			j.setResizable(false);
 		}
 
 }

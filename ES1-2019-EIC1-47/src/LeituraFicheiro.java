@@ -139,7 +139,7 @@ public class LeituraFicheiro extends JPanel{
 			jt.getColumnModel().getColumn(i).setWidth(100);;
 		}
 		// Set size of table     
-		jt.setPreferredScrollableViewportSize(new Dimension(1000, 674));
+		jt.setPreferredScrollableViewportSize(new Dimension(750, 600));
 
 		// This will resize the height of the table automatically 
 		// to all data without scrolling. 

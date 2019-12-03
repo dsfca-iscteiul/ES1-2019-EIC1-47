@@ -22,7 +22,7 @@ public class InterfaceUser_thresholds {
 	private JFrame frame;
 	private JPanel zona1;
 	private JPanel zona2;
-	private JTextField logicsym;
+	private JComboBox logicsym;
 	private String [] listRules;
 	private int nextPos;
 	private String selectedComboBox;
@@ -58,13 +58,18 @@ public class InterfaceUser_thresholds {
 	public void addFrameContent(){
 		frame.add(zona1, BorderLayout.WEST);
 		frame.add(zona2, BorderLayout.EAST);
-		panelZona1();
+		try {
+			panelZona1();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		panelZona2();
 	}
 	
 	
 	/*CONTEUDO PAINEL ZONA1*/
-	private void panelZona1(){
+	private void panelZona1() throws Exception{
 		JLabel createRule = new JLabel("Create Rule:");
 		JLabel name = new JLabel("Name:");
 		JTextField nametext = new JTextField(10);
@@ -74,7 +79,11 @@ public class InterfaceUser_thresholds {
 		JLabel metric2 = new JLabel(" CYCLO >");
 		JTextField metric1text = new JTextField(1);
 		JTextField metric2text = new JTextField(1);
-		logicsym = new JTextField(2);
+		
+		LogicParser[] lp = {new LogicParser(0),new LogicParser(1),new LogicParser(2),new LogicParser(3)};
+		logicsym = new JComboBox<LogicParser>(lp);
+		logicsym.setSelectedIndex(0);
+		
 		Button add = new Button("Add Rule");
 		
 		JPanel zona11 = new JPanel();
@@ -100,7 +109,7 @@ public class InterfaceUser_thresholds {
 		p5.add(metric2text);
 		
 		alComboBox(comboBox, metric1, metric2);
-		alAddRule(add, nametext, metric1text, metric2text, logicsym);
+		alAddRule(add, nametext, metric1text, metric2text, new LogicParser(logicsym.getSelectedIndex()));
 	}
 	
 	/*ACTION LISTENER DA COMBOBOX*/
@@ -131,7 +140,7 @@ public class InterfaceUser_thresholds {
 	
 	
 	/*ACTION LISTENER DO BOTAO ADD RULE*/
-	private void alAddRule(Button b, JTextField name, JTextField m1, JTextField m2, JTextField logicsym){
+	private void alAddRule(Button b, JTextField name, JTextField m1, JTextField m2, LogicParser lp){
 	
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
