@@ -91,8 +91,9 @@ public class InterfaceUser {
 				if(file!=null)
 					try {
 						JFrame j = new JFrame("Ficheiro");
-						LeituraFicheiro t = new LeituraFicheiro();
-						t.CorreFicheiro(file);
+						LeituraFicheiro t = new LeituraFicheiro(file);
+						t.CorreFicheiro();
+						t.ShowTable();
 						j.setSize(775, 655);
 						j.setVisible(true);
 						j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -108,8 +109,10 @@ public class InterfaceUser {
 
 		editThresholds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InterfaceUser_thresholds ui=new InterfaceUser_thresholds();
-				ui.open();
+				if(file!=null) {
+					InterfaceUser_thresholds ui=new InterfaceUser_thresholds(file);
+					ui.open();
+				}
 			}
 		});
 		

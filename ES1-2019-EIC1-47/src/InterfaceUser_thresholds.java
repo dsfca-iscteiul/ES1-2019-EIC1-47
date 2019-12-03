@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,14 +30,29 @@ public class InterfaceUser_thresholds {
 	private String selectedComboBox;
 	private int mode;
 	private JList<String> list;
+	private File file;
 
+	public InterfaceUser_thresholds(File file) {
+		this.file = file;
+		mode = 1;
+		selectedComboBox = "";
+		listRules = new String[15];
+//		listRules[0]="iPlasma;;;;is_long_method";
+//		listRules[1]="PMD;;;;is_long_method";
+		
+		listRulz = new Rule[15];
+//		listRules[0]="iPlasma;;;;is_long_method";
+//		listRules[1]="PMD;;;;is_long_method";
+//		nextPos = 2;
+		showUI();
+	}
 	
 	public InterfaceUser_thresholds() {
 		mode = 1;
 		selectedComboBox = "";
 		listRules = new String[15];
-		listRules[0]="iPlasma;;;;is_long_method";
-		listRules[1]="PMD;;;;is_long_method";
+//		listRules[0]="iPlasma;;;;is_long_method";
+//		listRules[1]="PMD;;;;is_long_method";
 		
 		listRulz = new Rule[15];
 //		listRules[0]="iPlasma;;;;is_long_method";
@@ -54,7 +70,7 @@ public class InterfaceUser_thresholds {
 		zona2.setLayout(new GridLayout(5,1));
 		frame = new JFrame();
 		frame.setLayout(new GridLayout(1,2));
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addFrameContent();
 		frame.setSize(600, 300);
 		frame.setLocation(500, 100);
@@ -209,6 +225,7 @@ public class InterfaceUser_thresholds {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(file==null) file = new LeituraFicheiro().openFile();
 				System.out.println(listRulz[list.getSelectedIndex()].runRule(1, 2));
 				System.out.println(listRulz[list.getSelectedIndex()].toString());
 			}
