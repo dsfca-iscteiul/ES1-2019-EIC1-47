@@ -24,17 +24,29 @@ public class InterfaceUser_thresholds {
 	private JPanel zona2;
 	private JComboBox logicsym;
 	private String [] listRules;
+	private Rule[] listRulz;
 	private int nextPos;
 	private String selectedComboBox;
-	
+	private int mode;
+	private JList<String> list;
 
 	
 	public InterfaceUser_thresholds() {
+		mode = 1;
 		selectedComboBox = "";
 		listRules = new String[15];
 		listRules[0]="iPlasma;;;;is_long_method";
 		listRules[1]="PMD;;;;is_long_method";
-		nextPos = 2;
+		
+		listRulz = new Rule[15];
+//		listRules[0]="iPlasma;;;;is_long_method";
+//		listRules[1]="PMD;;;;is_long_method";
+//		nextPos = 2;
+		showUI();
+		
+	}
+	
+	public void showUI() {
 		zona1 = new JPanel();
 		zona1.setLayout(new BorderLayout());
 		zona1.setBorder(BorderFactory.createEmptyBorder(30, 20, 20, 20));
@@ -46,9 +58,7 @@ public class InterfaceUser_thresholds {
 		addFrameContent();
 		frame.setSize(600, 300);
 		frame.setLocation(500, 100);
-		
 	}
-	
 	
 	public void open(){
 		frame.setVisible(true);
@@ -73,7 +83,7 @@ public class InterfaceUser_thresholds {
 		JLabel createRule = new JLabel("Create Rule:");
 		JLabel name = new JLabel("Name:");
 		JTextField nametext = new JTextField(10);
-		String [] options = {"LOC CYCLO", "ATFD LAA"};
+		String [] options = {"Long Method", "Feature Envy"};
 		JComboBox<String> comboBox = new JComboBox<String>(options);		
 		JLabel metric1 = new JLabel("LOC >");
 		JLabel metric2 = new JLabel(" CYCLO >");
@@ -120,15 +130,17 @@ public class InterfaceUser_thresholds {
 				
 				String s = (String) cb.getSelectedItem();
 				switch(s) {
-					case "LOC CYCLO":
+					case "Long Method":
 						m1.setText("LOC >");
 						m2.setText("CYCLO >");
 						selectedComboBox="is_long_method";
+						mode = 1;
 					break;
-					case "ATFD LAA":
+					case "Feature Envy":
 						m1.setText("ATFD >");
 						m2.setText("LAA <");
 						selectedComboBox="is_feature_envy";
+						mode = 0;
 					break;
 				default:
 					System.out.println("Sem opcao selecionada"); /*RESOLVER NICAS*/
@@ -146,8 +158,23 @@ public class InterfaceUser_thresholds {
 			public void actionPerformed(ActionEvent e) {
 /*ADICIONAR VERIFICACAO SIMBOLO LOGICO*/				
 				if(!name.getText().equals("") && checkIfNumber(m1) && checkIfNumber(m2)){
-					listRules[nextPos] = name+";"+m1+";"+logicsym+";"+m2+";"+selectedComboBox;
+//					listRules[nextPos] = name.getText()+";"+m1+";"+logicsym+";"+m2+";"+selectedComboBox;
+					try {
+						
+						listRulz[nextPos] = new Rule(name.getText(), Integer.parseInt(m1.getText()), Integer.parseInt(m2.getText()), new LogicParser(logicsym.getSelectedIndex()),mode);
+						listRules[nextPos] = new Rule(name.getText(), Integer.parseInt(m1.getText()), Integer.parseInt(m2.getText()), new LogicParser(logicsym.getSelectedIndex()), mode).toString();
+//						list.
+					} catch (NumberFormatException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					nextPos++;
+//					list = new JList<String>(listRules);
+//					list.setModel(JList<String>(listRules));
+					list.updateUI();
 				}else{
 					/*NICAS ADD EXCECAO*/
 				}
@@ -174,8 +201,18 @@ public class InterfaceUser_thresholds {
 		JRadioButton r1 = new JRadioButton("is_long_method");
 		JRadioButton r2 = new JRadioButton("is_feature_envy");
 		JLabel with = new JLabel("With rule:");
-		JList<String> list = new JList<String>(listRules);
-		Button makeComparisson = new Button("Compare");
+		list = new JList<String>(listRules);
+		Button makeComparison = new Button("Compare");
+		
+		makeComparison.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				System.out.println(listRulz[list.getSelectedIndex()].runRule(1, 2));
+				System.out.println(listRulz[list.getSelectedIndex()].toString());
+			}
+		} );
 		
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(2,1));
@@ -184,7 +221,7 @@ public class InterfaceUser_thresholds {
 		zona2.add(p1);
 		zona2.add(with);
 		zona2.add(list);
-		zona2.add(makeComparisson);
+		zona2.add(makeComparison);
 		
 		p1.add(r1);
 		p1.add(r2);
