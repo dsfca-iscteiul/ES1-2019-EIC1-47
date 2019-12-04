@@ -41,7 +41,6 @@ public class InterfaceUser_thresholds {
 		listRules = new String[15];
 //		listRules[0]="iPlasma;;;;is_long_method";
 //		listRules[1]="PMD;;;;is_long_method";
-		
 		listRulz = new Rule[15];
 //		listRules[0]="iPlasma;;;;is_long_method";
 //		listRules[1]="PMD;;;;is_long_method";
@@ -55,7 +54,6 @@ public class InterfaceUser_thresholds {
 		listRules = new String[15];
 //		listRules[0]="iPlasma;;;;is_long_method";
 //		listRules[1]="PMD;;;;is_long_method";
-		
 		listRulz = new Rule[15];
 //		listRules[0]="iPlasma;;;;is_long_method";
 //		listRules[1]="PMD;;;;is_long_method";
@@ -176,22 +174,15 @@ public class InterfaceUser_thresholds {
 			public void actionPerformed(ActionEvent e) {
 /*ADICIONAR VERIFICACAO SIMBOLO LOGICO*/				
 				if(!name.getText().equals("") && checkIfNumber(m1) && checkIfNumber(m2)){
-//					listRules[nextPos] = name.getText()+";"+m1+";"+logicsym+";"+m2+";"+selectedComboBox;
 					try {
-						
 						listRulz[nextPos] = new Rule(name.getText(), Integer.parseInt(m1.getText()), Integer.parseInt(m2.getText()), new LogicParser(logicsym.getSelectedIndex()),mode);
 						listRules[nextPos] = new Rule(name.getText(), Integer.parseInt(m1.getText()), Integer.parseInt(m2.getText()), new LogicParser(logicsym.getSelectedIndex()), mode).toString();
-//						list.
 					} catch (NumberFormatException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					} catch (Exception e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					nextPos++;
-//					list = new JList<String>(listRules);
-//					list.setModel(JList<String>(listRules));
 					list.updateUI();
 				}else{
 					/*NICAS ADD EXCECAO*/
@@ -226,21 +217,29 @@ public class InterfaceUser_thresholds {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				LeituraFicheiro a = new LeituraFicheiro();
-				if(file==null) file = a.openFile();
+				
+				LeituraFicheiro leitorDeFicheiros = new LeituraFicheiro(null);
+				if(file!=null) {
+					leitorDeFicheiros = new LeituraFicheiro(file);
+				}
+				if(file==null) {
+					leitorDeFicheiros = new LeituraFicheiro();
+					file = leitorDeFicheiros.openFile();
+				}
+				
 				try {
-					a.CorreFicheiro();
+					leitorDeFicheiros.setFile(file);
+					leitorDeFicheiros.CorreFicheiro();	
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				ArrayList<Metodo> ar = a.createList();
+				ArrayList<Metodo> ar = leitorDeFicheiros.createList();
+				
 				for (Metodo m: ar) {
-					System.out.println(listRulz[list.getSelectedIndex()].runRule((int)m.getLoc(), (int)m.getCyclo()));
+					System.out.println(listRulz[list.getSelectedIndex()].toString() + " on MethodID " + m.getMethodID() + " - " + 
+							listRulz[list.getSelectedIndex()].runRule((int)m.getLoc(), (int)m.getCyclo()));
+					//para debug, de momento está a imprimir para a consola, mas fica a ideia lol
 				}
-				System.out.println(listRulz[list.getSelectedIndex()].runRule(1, 2));
-				System.out.println(listRulz[list.getSelectedIndex()].toString());
 			}
 		} );
 		

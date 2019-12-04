@@ -55,7 +55,12 @@ public class LeituraFicheiro extends JPanel{
 			return null;
 		}
 	}
-
+	public void setFile(File file) {
+		this.file = file;
+	}
+	public File getFile() {
+		return file;
+	}
 	//Metodo para ler o Ficheiro Excel
 
 	public void CorreFicheiro() throws IOException{		
