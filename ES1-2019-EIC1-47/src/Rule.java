@@ -8,6 +8,7 @@ public class Rule {
 	private LogicParser lp;
 	public static final int featureEnvy = 0;
 	public static final int longMethod = 1;
+	private ResultRepresenter result;
 	
 	public Rule(String name, int Limit1, int Limit2, LogicParser lp, int mode) {
 		this.name = name;
@@ -70,8 +71,9 @@ public class Rule {
 		Limit2 = limit2;
 	}
 
-	public int getMode() {
-		return mode;
+	public String getMode() {
+		if(mode==0) return "Feature Envy";
+		return "Long Method";
 	}
 
 	public void setMode(int mode) {
@@ -85,5 +87,18 @@ public class Rule {
 	public void setLp(LogicParser lp) {
 		this.lp = lp;
 	}
+
+	public ResultRepresenter getResult() {
+		return result;
+	}
+
+	public void setResult(ResultRepresenter result) {
+		this.result = result;
+	}
+
+	
+	
+	
+	
 	
 }

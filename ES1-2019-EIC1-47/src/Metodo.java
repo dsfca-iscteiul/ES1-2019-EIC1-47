@@ -33,13 +33,8 @@ public class Metodo {
 	private boolean iPlasma;
 	private boolean PMD;
 	private boolean is_feature_envy;
-	
-	
-	
+	private boolean ruleResult;
 
-
-	
-	
 	public void setloc(double loc) {
 		this.loc = loc;
 	}
@@ -156,5 +151,13 @@ public class Metodo {
 
 	public void setPMD(boolean pMD) {
 		PMD = pMD;
+	}
+	
+	public boolean getRuleResult() {
+		return ruleResult;
+	}
+
+	public void setRuleResult(boolean ruleResult) {
+		this.ruleResult = ruleResult;
 	}
 }

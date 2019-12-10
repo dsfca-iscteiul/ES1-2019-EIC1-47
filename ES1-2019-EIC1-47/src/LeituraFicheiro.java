@@ -55,14 +55,17 @@ public class LeituraFicheiro extends JPanel{
 			return null;
 		}
 	}
+	
+	
 	public void setFile(File file) {
 		this.file = file;
 	}
 	public File getFile() {
 		return file;
 	}
+	
+	
 	//Metodo para ler o Ficheiro Excel
-
 	public void CorreFicheiro() throws IOException{		
 		// Columns for table
 		columns = new String[12];
@@ -120,8 +123,8 @@ public class LeituraFicheiro extends JPanel{
 				linhas[countLinhas] = linha;
 			}
 			countLinhas++;
-
 		}
+		fis.close();
 	}
 
 	public void ShowTable() {
