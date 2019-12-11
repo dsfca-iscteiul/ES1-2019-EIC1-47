@@ -5,13 +5,17 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class InterfaceUser {
 	
@@ -26,7 +30,7 @@ public class InterfaceUser {
 	private JPanel b2;
 	private JPanel b3;
 	private JPanel b4;
-	
+	private File file;
 	public static void main(String[] args) {
 		
 		InterfaceUser menu = new InterfaceUser();
@@ -78,21 +82,37 @@ public class InterfaceUser {
 		
 		openFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//adicionar m�todo de ac��o do bot�o
+				file=new LeituraFicheiro().openFile();
 			}
 		});
 		
 		showFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//adicionar m�todo de ac��o do bot�o
+				if(file!=null)
+					try {
+						JFrame j = new JFrame("Ficheiro");
+						LeituraFicheiro t = new LeituraFicheiro(file);
+						t.CorreFicheiro();
+						t.ShowTable();
+						j.setSize(775, 655);
+						j.setVisible(true);
+						j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						j.add(t);
+						j.setResizable(false);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
 		});
 		
 
 		editThresholds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				InterfaceUser_thresholds ui=new InterfaceUser_thresholds();
-				ui.open();
+				if(file!=null) {
+					InterfaceUser_thresholds ui=new InterfaceUser_thresholds(file);
+					ui.open();
+				}
 			}
 		});
 		
