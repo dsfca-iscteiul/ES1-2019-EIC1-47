@@ -18,33 +18,80 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+/**
+ * 
+ * @author Allan Wá
+ * Date:11/12/2019
+ *
+ */
 
 
 public class LeituraFicheiro extends JPanel{
+	/**
+	 * jt- 
+	 */
 	private JTable jt;
+	
+	/**
+	 * file- is the file we want to read
+	 */
 	private File file;
+	
+	/**
+	 * columns- the columns of the file
+	 */
 	private String[] columns;
+	
+	/**
+	 * linhas- lines of the file
+	 */
 	private String[][] linhas;
+	
+	/**
+	 * sheet- the actual sheet of the file
+	 */
 	private XSSFSheet sheet;
+	
+	/**
+	 * dados- the list made of information of the file
+	 */
 	private static ArrayList<Metodo> dados = new ArrayList<Metodo>();
+	
+	/**
+	 * 
+	 * @return dados the list made of information of the file
+	 */
 	public static ArrayList<Metodo> getDados() {
 		return dados;
 	}
 
 
+	/**
+	 * fis- obtains input bytes from the file 
+	 */
 	private FileInputStream fis;
 
 
-
+	/**
+	 * 
+	 * @param file- the file we want to read
+	 */
 	// construtor
 	public LeituraFicheiro(File file) {
 		this.file = file;
 	}
 	
+	/**
+	 * 
+	 */
 	public LeituraFicheiro() {
-	
 	}
 
+	
+	/**
+	 * 
+	 * @return file
+	 */
 	//metodo para criar um fileChooser(que nos da opcao para escolher o ficheiro)
 	public File openFile() {
 		JFileChooser chooser = new JFileChooser();
@@ -56,15 +103,27 @@ public class LeituraFicheiro extends JPanel{
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param file-the file we want to read
+	 * set file allow us to choose the file we want to read
+	 */
 	public void setFile(File file) {
 		this.file = file;
 	}
+	
+	/**
+	 * 
+	 * @return the file we want to read
+	 */
 	public File getFile() {
 		return file;
 	}
 	
-	
+	/**
+	 *  Method for reading Excel File
+	 * @throws IOException
+	 */
 	//Metodo para ler o Ficheiro Excel
 	public void CorreFicheiro() throws IOException{		
 		// Columns for table
@@ -126,6 +185,10 @@ public class LeituraFicheiro extends JPanel{
 		}
 		fis.close();
 	}
+	
+	/**
+	 * Method to show the file conten in a table
+	 */
 
 	public void ShowTable() {
 		
@@ -153,12 +216,28 @@ public class LeituraFicheiro extends JPanel{
 		createList(sheet);
 	}
 	
+	/**
+	 * 
+	 * @return the  obtainer of input bytes from the file 
+	 */
 	public FileInputStream getFis() {
 		return fis;
 	}
+	
+	/**
+	 * 
+	 * @return the list made of information of the file
+	 */
 	public ArrayList<Metodo> createList(){
 		return createList(sheet);
 	}
+	
+	
+	/**
+	 * Method to get the information of the file
+	 * @param sheet current sheet
+	 * @return the list made of information of the file
+	 */
 	public static ArrayList<Metodo> createList(XSSFSheet sheet) {
 		Iterator<Row> rowIterator = sheet.iterator();
 
