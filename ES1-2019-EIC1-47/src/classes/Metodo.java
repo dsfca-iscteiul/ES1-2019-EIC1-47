@@ -120,7 +120,7 @@ public class Metodo {
 	}
 
 	/**
-	 *  The toString() method was changed for better readability, and it returns the given name of the rule, followed by the preset
+	 *  The toString() method was changed for better readability, and it returns, followed by the preset
 	 */
 	public String toString() {
 		return "Metodo [methodID=" + methodID + ", package1=" + package1 + ", class1=" + class1 + ", method=" + method

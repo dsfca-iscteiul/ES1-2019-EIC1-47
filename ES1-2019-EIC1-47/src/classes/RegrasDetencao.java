@@ -31,9 +31,9 @@ public class RegrasDetencao {
 	}
 	
 	/**
-	 * metodo verificao do feature envy e long method, com dados postos pelo utilizador
-	 * @param ATFDLimit
-	 * @param LAALimit
+	 * metodo verificao do feature envy e long method, com dados postos pelo utilizador 
+	 * @param ATFDLimit,
+	 * @param LAALimit,
 	 * @param LOCLimit
 	 * @param CYCLOLimit
 	 * @throws Exception
