@@ -5,9 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 
-
+/**
+ * Date: Dec 12, 2019
+ * This class represents the results of the rule the user decides to run in a window.
+ * @author Tomás Ferreira
+ */
 public class ResultRepresenter {
 	private JFrame frame;
 	private JTable table;
@@ -17,10 +20,15 @@ public class ResultRepresenter {
 	private boolean ran = false;
 	private Rule rule;
 	private String mode = "";
-	private int[] counter = {0,0,0,0};
 	
 	
-	public String DefectComparison(boolean rule, boolean external) {
+	/**
+	 * This function compares the user-defined rule result boolean with the external boolean, and returns its defect indicators.
+	 * @param Rule User-defined rule result.
+	 * @param External External result.
+	 * @return Defect indicator.
+	 */
+	private String DefectComparison(boolean rule, boolean external) {
 		if(rule && external) return "DCI";
 		if(rule && !external) return "ADII";
 		if(!rule && external) return "DII";
@@ -28,41 +36,15 @@ public class ResultRepresenter {
 		return null;
 	}
 	
-	
-
-	public void grabResults(ArrayList<Metodo> mList, int mode) {
-		if(!ran) {
-			int count = 0;
-			for(Metodo m: mList) {
-				data[count][0] = Integer.toString((int)m.getMethodID());
-				if(mode==0) {
-					data[count][1] = Boolean.toString(m.getRuleResult());
-				}
-				else if(mode==1) {
-					data[count][1] = DefectComparison(m.getRuleResult(), m.isiPlasma());
-				}
-				else if(mode==2) {
-					data[count][1] = DefectComparison(m.getRuleResult(), m.isPMD());
-				}
-				count++;
-			}
-			ran = true;
-		}
-	}
-	public void grabResults(ArrayList<Metodo> mList) {
-		if(!ran) {
-			int count = 0;
-			for(Metodo m: mList) {
-				data[count][0] = Integer.toString((int)m.getMethodID());
-				data[count][1] = Boolean.toString(m.getRuleResult());
-				count++;
-			}
-			ran = true;
-		}
-	}
+	/**
+	 * This function iterates the given array, runs the given rule, and stores the results in the data array, which will be added to the JTable.
+	 * The mode parameter allows for the Long Method comparison with the iPlasma and PMD tool results. 
+	 * @param ar ArrayList of Metodo, which will be iterated.
+	 * @param rule Rule to be checked.
+	 * @param mode Mode of comparison, in case of Long Method.
+	 */
 	public void grabResults(ArrayList<Metodo> ar, Rule rule, int mode) {
 		if(!ran) {
-			resetCounters();
 			this.rule = rule;
 			for (Metodo m: ar) {
 				data[(int)m.getMethodID()-1][0] = Integer.toString((int)m.getMethodID());
@@ -88,31 +70,16 @@ public class ResultRepresenter {
 					
 				}
 				
-				addToCounter(data[(int)m.getMethodID()-1][1]);
 			}
 			ran = true;
 		}
 	}
 	
-	private void resetCounters() {
-		counter[0] = 0;
-		counter[1] = 0;
-		counter[2] = 0;
-		counter[3] = 0;
-	}
-	private void addToCounter(String toBeAdded) {
-		if(mode.equals("")) {
-			if(toBeAdded.equals("false"))counter[0]++;
-			else if(toBeAdded.equals("true"))counter[1]++;
-		}
-		else {
-			if(toBeAdded.equals("DCI"))counter[0]++;
-			else if(toBeAdded.equals("DII"))counter[1]++;
-			else if(toBeAdded.equals("ADCI"))counter[2]++;
-			else if(toBeAdded.equals("ADII"))counter[3]++;
-		}
-	}
-	
+	/**
+	 * This function counts the number of occurrences of a given string within the results part of the data array.
+	 * @param tbCounted String to be counted.
+	 * @return The number of occurrences.
+	 */
 	private int countStrings(String tbCounted) {
 		int j = 0;
 		for (int i = 0; i < 420; i++) {
@@ -120,20 +87,20 @@ public class ResultRepresenter {
 		}
 		return j;
 	}
+	
+	/**
+	 * This function shows the UI to the user.
+	 */
 	public void showWindow() {
 		frame = new JFrame(rule.getName()+mode);
 		table=new JTable(data,column);    
 		table.setBounds(30,40,200,300);       
-
-
 		sp=new JScrollPane(table);
 		sp.setSize(300,400);
-		
 		JLabel jta = new JLabel();
 		if(mode.equals(""))jta.setText("<html><div style='text-align: center;'>" + "False: " + countStrings("false") + "  True: " + countStrings("true") + "</div></html>");
 		if(!mode.equals(""))jta.setText("<html><div style='text-align: center;'>" + "DCI: " + countStrings("DCI") + " DII: " + countStrings("DII") + " ADCI: " + countStrings("ADCI") + " ADII: " + countStrings("ADII") + "</div></html>");
 		jta.setVisible(true);
-
 		BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
 		frame.setLayout(boxLayout);
 		frame.add(sp);
@@ -145,12 +112,19 @@ public class ResultRepresenter {
 		frame.setResizable(false);
 	}
 	
+	/**
+	 * This function returns the rule applied to this ResultRepresenter.
+	 * @return
+	 */
 	public Rule getRule() {
 		return rule;
 	}
 
+	/**
+	 * This function sets a different rule to this Object.
+	 * @param rule
+	 */
 	public void setRule(Rule rule) {
-		resetCounters();
 		this.rule = rule;
 	}
 }

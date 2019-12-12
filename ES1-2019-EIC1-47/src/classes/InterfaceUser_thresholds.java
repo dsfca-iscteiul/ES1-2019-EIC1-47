@@ -11,10 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -23,8 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
@@ -34,8 +28,11 @@ public class InterfaceUser_thresholds {
 	private JFrame frame;
 	private JPanel zona1;
 	private JPanel zona2;
-	JLabel avisoUser;
-			
+	private JLabel avisoUser;
+	private ButtonGroup bg;
+	private JRadioButton r1;
+	private JRadioButton r2;
+	private JRadioButton r3;
 	private JList<String> list;
 	private String[] listRules;
 	private Rule[] listRulz;
@@ -178,11 +175,16 @@ public class InterfaceUser_thresholds {
 				String s = (String) cb.getSelectedItem();
 				switch (s) {
 				case "Long Method":
+					r2.setEnabled(true);
+					r3.setEnabled(true);
 					m1.setText("LOC >");
 					m2.setText("CYCLO >");
 					mode = 1;
 					break;
 				case "Feature Envy":
+					r1.setSelected(true);
+					r2.setEnabled(false);
+					r3.setEnabled(false);
 					m1.setText("ATFD >");
 					m2.setText("LAA <");
 					mode = 0;
@@ -257,16 +259,16 @@ public class InterfaceUser_thresholds {
 	/* CONTEUDO PAINEL ZONA2 */
 	private void panelZona2(){
 		JLabel compare = new JLabel("Compare (if Long Method):");
-		JRadioButton r1 = new JRadioButton("None");
-		JRadioButton r2 = new JRadioButton("iPlasma");
-		JRadioButton r3 = new JRadioButton("PMD");
+		r1 = new JRadioButton("None");
+		r2 = new JRadioButton("iPlasma");
+		r3 = new JRadioButton("PMD");
 		JLabel with = new JLabel("With rule:");
 		
 		list = new JList<String>(listRules);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		Button makeComparison = new Button("Compare");
 		
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		bg.add(r1);
 		bg.add(r2);
 		bg.add(r3);
