@@ -1,10 +1,12 @@
 package classes;
+
 /**
  * Date: Dec 12, 2019
  * This is a class that receives a Rule, with thresholds and a mode (being it Feature Envy or Long Method), 
  * and creates and runs a new RuleChecker accordingly.
  * @author Tomás Ferreira
  */
+
 public class Rule {
 
 	private String name;

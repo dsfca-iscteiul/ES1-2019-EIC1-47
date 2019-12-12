@@ -40,7 +40,7 @@ public class ResultRepresenter {
 				data[(int)m.getMethodID()-1][0] = Integer.toString((int)m.getMethodID());
 				if(rule.getMode().equals("Feature Envy")) data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getAtfd(), (int)m.getLaa()));
 				if(rule.getMode().equals("Long Method")) data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getLoc(), (int)m.getCyclo()));
-			}	
+			}
 			ran = true;
 		}
 	}
