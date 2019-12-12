@@ -1,3 +1,4 @@
+package classes;
 public class LogicParser {
 	/*
 		Esta classe serve para interpretar do resultado do input

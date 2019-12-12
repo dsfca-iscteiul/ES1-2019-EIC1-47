@@ -1,3 +1,4 @@
+package classes;
 public class RuleChecker {
 	/*
 		Esta classe realiza as verificações das regras feature Envy, 
