@@ -111,11 +111,10 @@ public class InterfaceUser_thresholds {
 
 /**
  * Adds content to left panel ("Create Rule")
- * @throws Exception
  */
 
 	/* CONTEUDO PAINEL ZONA1 */
-	private void panelZona1() throws Exception {
+	private void panelZona1(){
 		JLabel createRule = new JLabel("Create Rule:");
 		JLabel name = new JLabel("Name:");
 		JTextField nametext = new JTextField(10);
@@ -125,44 +124,47 @@ public class InterfaceUser_thresholds {
 		JLabel metric2 = new JLabel(" CYCLO >");
 		JTextField metric1text = new JTextField(1);
 		JTextField metric2text = new JTextField(1);
+		
+		try {
+			LogicParser[] lp = { new LogicParser(0), new LogicParser(1), new LogicParser(2), new LogicParser(3) };
+			logicsym = new JComboBox<LogicParser>(lp);
+			logicsym.setSelectedIndex(0);
+			Button add = new Button("Add Rule");
 
-		LogicParser[] lp = { new LogicParser(0), new LogicParser(1), new LogicParser(2), new LogicParser(3) };
-		logicsym = new JComboBox<LogicParser>(lp);
-		logicsym.setSelectedIndex(0);
+			JPanel zona11 = new JPanel();
+			zona11.setLayout(new GridLayout(3, 1));
+			JPanel p2 = new JPanel();
+			p2.setLayout(new FlowLayout());
+			JPanel p5 = new JPanel();
+			p5.setLayout(new FlowLayout());
 
-		Button add = new Button("Add Rule");
+			zona1.add(createRule, BorderLayout.NORTH);
+			zona1.add(zona11, BorderLayout.CENTER);
+			zona1.add(add, BorderLayout.SOUTH);
+			zona11.add(p2);
+			zona11.add(comboBox);
+			zona11.add(p5);
 
-		JPanel zona11 = new JPanel();
-		zona11.setLayout(new GridLayout(3, 1));
-		JPanel p2 = new JPanel();
-		p2.setLayout(new FlowLayout());
-		JPanel p5 = new JPanel();
-		p5.setLayout(new FlowLayout());
+			p2.add(name);
+			p2.add(nametext);
+			p5.add(metric1);
+			p5.add(metric1text);
+			p5.add(logicsym);
+			p5.add(metric2);
+			p5.add(metric2text);
 
-		zona1.add(createRule, BorderLayout.NORTH);
-		zona1.add(zona11, BorderLayout.CENTER);
-		zona1.add(add, BorderLayout.SOUTH);
-		zona11.add(p2);
-		zona11.add(comboBox);
-		zona11.add(p5);
-
-		p2.add(name);
-		p2.add(nametext);
-		p5.add(metric1);
-		p5.add(metric1text);
-		p5.add(logicsym);
-		p5.add(metric2);
-		p5.add(metric2text);
-
-		alComboBox(comboBox, metric1, metric2);
-		alAddRule(add, nametext, metric1text, metric2text, new LogicParser(logicsym.getSelectedIndex()));
+			alComboBox(comboBox, metric1, metric2);
+			alAddRule(add, nametext, metric1text, metric2text, new LogicParser(logicsym.getSelectedIndex()));
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	
 	
 /**
  * Action Listener of ComboBox (enables to choose between creating a is_long_method or feature_envy comparing rule)
- * @param cb
+ * @param cb 
  * @param m1
  * @param m2
  */

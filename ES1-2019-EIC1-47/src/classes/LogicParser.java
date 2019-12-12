@@ -9,6 +9,7 @@ public class LogicParser {
 	public static final int OR   = 1;
 	public static final int NAND = 2;
 	public static final int NOR  = 3;
+	public static final int XOR  = 4;
 	private int currentStatus = -1;
 	
 	/**
@@ -16,8 +17,8 @@ public class LogicParser {
 	 * @param i Comparison mode, in Integer.
 	 * @throws Exception Throws an exception if the mode isn't recognized as valid.
 	 */
-	LogicParser(int i) throws Exception{
-		if(i >= 0 && i <= 3)
+	public LogicParser(int i) throws Exception{
+		if(i >= 0 && i <= 4)
 			this.currentStatus = i;
 		else throw new Exception("Invalid comparison mode");
 	}
@@ -26,11 +27,12 @@ public class LogicParser {
 	 * @param i Comparison mode, in String.
 	 * @throws Exception Throws an exception if the mode isn't recognized as valid.
 	 */
-	LogicParser(String i) throws Exception{
+	public LogicParser(String i) throws Exception{
 		if(i.equalsIgnoreCase("AND"))       currentStatus = 0;
 		else if(i.equalsIgnoreCase("OR"))   currentStatus = 1;
 		else if(i.equalsIgnoreCase("NAND")) currentStatus = 2;
 		else if(i.equalsIgnoreCase("NOR"))  currentStatus = 3;
+		else if(i.equalsIgnoreCase("XOR"))  currentStatus = 4;
 		else throw new Exception("Invalid comparison mode");
 	}
 	
@@ -54,10 +56,18 @@ public class LogicParser {
 			case 1: return  (a || b);
 			case 2: return !(a && b);
 			case 3: return !(a || b);
+			case 4: return ((a && !b) || (!a && b));
 		}
 		return false;
 	}
 	
+	/**
+	 * Sets the current status to another one.
+	 * @param i New status.
+	 */
+	public void setCurrentStatus(int i) {
+		this.currentStatus = i;
+	}
 	@Override
 	public String toString() {
 		switch (currentStatus) {
@@ -65,6 +75,7 @@ public class LogicParser {
 			case OR:   return "OR";
 			case NAND: return "NAND";
 			case NOR:  return "NOR";
+			case XOR:  return "XOR";
 		}
 		return "NOT SET";
 	}
