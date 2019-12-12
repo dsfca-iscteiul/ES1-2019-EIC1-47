@@ -9,28 +9,70 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.filechooser.FileNameExtensionFilter;
+
+/**
+ * Date: Nov 9, 2019
+ * This is a simple menu for the user to select the different actions of this application :) 
+ * @author Catarina Teodoro
+ * 
+ */
 
 public class InterfaceUser {
 	
+	/**
+	 * JFrame for the main menu.
+	 */
 	private JFrame frame;
+	/**
+	 * JLabel "Menu".
+	 */
 	private JLabel menu;
+	/**
+	 * JButton to select the file we want to analyze.
+	 */
 	private JButton openFile;
+	/**
+	 * JButton to open the file we selected.
+	 */
 	private JButton showFile;
+	/**
+	 * JButton to edit thresholds;
+	 */
 	private JButton editThresholds;
+	/**
+	 * JButton to test different platforms.
+	 */
 	private JButton testPlatform;
+	/**
+	 * JPanel for center of JFrame.
+	 */
 	private JPanel center;
+	/**
+	 * JPanel for openFile button.
+	 */
 	private JPanel b1;
+	/**
+	 * JPanel for showFile button.
+	 */
 	private JPanel b2;
+	/**
+	 * JPanel for editThresholds button.
+	 */
 	private JPanel b3;
+	/**
+	 * JPanel for testPlatform button.
+	 */
 	private JPanel b4;
+	/**
+	 * File we want to analyze.
+	 */
 	private File file;
+	
 	public static void main(String[] args) {
 		
 		InterfaceUser menu = new InterfaceUser();
@@ -38,6 +80,9 @@ public class InterfaceUser {
 		
 	}
 
+	/**
+	 * Constructor for InterfaceUser.
+	 */
 	public InterfaceUser() {
 		
 		frame = new JFrame("Menu");
@@ -125,6 +170,9 @@ public class InterfaceUser {
 
 	}
 	
+	/**
+	 * Method to open InterfaceUser.
+	 */
 	private void open(){
 		
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
