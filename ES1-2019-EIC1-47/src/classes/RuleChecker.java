@@ -1,44 +1,95 @@
 package classes;
+
+/**
+ * Date: Dec 12, 2019
+ * This is a class that does the rule checking,  with a few presets for simplification.
+ * @author Tom�s Ferreira
+ */
 public class RuleChecker {
-	/*
-		Esta classe realiza as verificações das regras feature Envy, 
-		com presets, caso o utilizador não defina dados.
-	*/
-	
-	// Preset do feature envy, como visto no enunciado, caso o utilizador não especifique valores
+
+	/**
+	 * Most basic Feature Envy preset, with some preset values, in case the user doesn't specify any threshold values.
+	 * @param AFTD AFTD Value of the method.
+	 * @param LAA LAA Value of the method.
+	 * @return Rule compliance.
+	 */
 	public boolean featureEnvyCheck(int AFTD, float LAA) { 
 		if (AFTD > 4 && LAA < 0.42)
 			return true;
 		return false;
 	}
 	
-	// verificação do feature envy, com dados postos pelo utilizador
+	/**
+	 * Feature Envy preset, with a preset logic comparison (in this case, AND), in case the user doesn't specify the logic comparison.
+	 * @param AFTD AFTD Value of the method.
+	 * @param LAA LAA Value of the method.
+	 * @param AFTDLimit AFTD Limit of the rule.
+	 * @param AFTDLimit LAA Limit of the rule.
+	 * @return Rule compliance.
+	 */
 	public boolean featureEnvyCheck(int AFTD, float LAA, int AFTDLimit, int LAALimit) throws Exception {
 		return featureEnvyCheck(AFTD, LAA, AFTDLimit, LAALimit, new LogicParser("AND"));
 	}
 	
-	public boolean featureEnvyCheck(int AFTD, float LAA, int AFTDLimit, int LAALimit, LogicParser logic) throws Exception {
-		if (logic.compare((AFTD > AFTDLimit), (LAA < LAALimit)))
+	/**
+	 * The complete Feature Envy check
+	 * @param AFTD AFTD Value of the method.
+	 * @param LAA LAA Value of the method.
+	 * @param AFTDLimit AFTD Limit of the rule.
+	 * @param AFTDLimit LAA Limit of the rule.
+	 * @param logic The logic comparison to be applied (LogicParser).
+	 * @return Rule compliance.
+	 */
+	public boolean featureEnvyCheck(int AFTD, float LAA, int AFTDLimit, int LAALimit, LogicParser logic){
+		try{
+			if (logic.compare((AFTD > AFTDLimit), (LAA < LAALimit)))
 			return true;
+		}catch (Exception e) {
+			return false;
+		}
 		return false;
 	}
 
-	// Preset do long method, caso o utilizador não especifique valores
+	/**
+	 * Most basic Long Method preset, with some preset values, in case the user doesn't specify any threshold values.
+	 * @param LOC LOC Value of the method.
+	 * @param CYCLO CYCLO Value of the method.
+	 * @return Rule compliance.
+	 */
 	public boolean longMethodCheck(int LOC, float CYCLO) { 
 		if (LOC > 80 && CYCLO > 10)
 			return true;
 		return false;
 	}
 	
-	// o mesmo que antes, mas com dados postos pelo utilizador
+	/**
+	 * Long Method preset, with a preset logic comparison (in this case, AND), in case the user doesn't specify the logic comparison.
+	 * @param LOC LOC Value of the method.
+	 * @param CYCLO CYCLO Value of the method.
+	 * @param LOCLimit LOC Limit of the rule.
+	 * @param CYCLOLimit CYCLO Limit of the rule.
+	 * @return Rule compliance.
+	 */
 	public boolean longMethodCheck(int LOC, int CYCLO, int LOCLimit, int CYCLOLimit) throws Exception {
 		return longMethodCheck(LOC, CYCLO, LOCLimit, CYCLOLimit, new LogicParser("AND"));
 	}
 	
-	
-	public boolean longMethodCheck(int LOC, int CYCLO, int LOCLimit, int CYCLOLimit, LogicParser logic) throws Exception {
-		if (logic.compare((LOC > LOCLimit), (CYCLO > CYCLOLimit)))
+	/**
+	 * The complete Long Method check
+	 * @param LOC LOC Value of the method.
+	 * @param CYCLO CYCLO Value of the method.
+	 * @param LOCLimit LOC Limit of the rule.
+	 * @param CYCLOLimit CYCLO Limit of the rule.
+	 * @param logic The logic comparison to be applied (LogicParser).
+	 * @return Rule compliance.
+	 */
+	public boolean longMethodCheck(int LOC, int CYCLO, int LOCLimit, int CYCLOLimit, LogicParser logic){
+		try {
+			if (logic.compare((LOC > LOCLimit), (CYCLO > CYCLOLimit)))
 			return true;
+		} catch (Exception e) {
+			return false;
+		}
 		return false;
 	}
 
