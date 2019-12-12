@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -32,6 +33,10 @@ public class InterfaceUser {
 	 * JLabel "Menu".
 	 */
 	private JLabel menu;
+	/**
+	 * JLabel to show error message to User
+	 */
+	private JLabel avisoUser;
 	/**
 	 * JButton to select the file we want to analyze.
 	 */
@@ -93,13 +98,14 @@ public class InterfaceUser {
 		b2 = new JPanel();
 		b3 = new JPanel();
 		b4 = new JPanel();
-		center.setLayout(new GridLayout(4,1,0,0));
+		center.setLayout(new GridLayout(5,1,0,0));
 		b1.setLayout(new FlowLayout());
 		b2.setLayout(new FlowLayout());
 		b3.setLayout(new FlowLayout());
 		b4.setLayout(new FlowLayout());
 		
 		menu = new JLabel("MENU", SwingConstants.CENTER);
+		avisoUser = new JLabel("", SwingConstants.CENTER);
 		openFile = new JButton("Select file to analize");
 		showFile = new JButton("Show file");
 		editThresholds = new JButton("Edit thresholds");
@@ -112,6 +118,9 @@ public class InterfaceUser {
 		
 		menu.setPreferredSize(new Dimension(100,100));
 		menu.setFont(new Font("Courier", Font.BOLD, 40));
+		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
+		avisoUser.setForeground(Color.red);
+		
 		
 		b1.add(openFile);
 		b2.add(showFile);
@@ -121,6 +130,7 @@ public class InterfaceUser {
 		center.add(b2);
 		center.add(b3);
 		center.add(b4);
+		center.add(avisoUser);
 		
 		frame.add(menu, BorderLayout.NORTH);
 		frame.add(center, BorderLayout.CENTER);
@@ -128,12 +138,13 @@ public class InterfaceUser {
 		openFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				file=new LeituraFicheiro().openFile();
+				setTextAviso("");
 			}
 		});
 		
 		showFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(file!=null)
+				if(file!=null){
 					try {
 						JFrame j = new JFrame("Ficheiro");
 						LeituraFicheiro t = new LeituraFicheiro(file);
@@ -144,10 +155,14 @@ public class InterfaceUser {
 						j.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						j.add(t);
 						j.setResizable(false);
+						setTextAviso("");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+				}else{
+					setTextAviso("Select a valid file first");
+				}
 			}
 		});
 		
@@ -157,6 +172,9 @@ public class InterfaceUser {
 				if(file!=null) {
 					InterfaceUser_thresholds ui=new InterfaceUser_thresholds(file);
 					ui.open();
+					setTextAviso("");
+				}else{
+					setTextAviso("Select a valid file first");
 				}
 			}
 		});
@@ -168,6 +186,13 @@ public class InterfaceUser {
 		});
 		
 
+	}
+	
+	/**
+	 * Method to change content of JLabel "avisoUser"
+	 */
+	private void setTextAviso(String s){
+		avisoUser.setText(s);
 	}
 	
 	/**
