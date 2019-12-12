@@ -17,9 +17,38 @@ public class ResultRepresenter {
 	private static String[] column = {"MethodID", "Obeys Rule"};
 	private String[][] data = new String[420][2];
 	private JScrollPane sp;
-	private int count = 0;
 	private boolean ran = false;
 	private Rule rule;
+	private String mode = "";
+	public String DefectComparison(boolean rule, boolean external) {
+		if(rule && external) return "DCI";
+		if(rule && !external) return "ADII";
+		if(!rule && external) return "DII";
+		if(!rule && !external) return "ADCI";
+		return null;
+	}
+	
+	
+
+	public void grabResults(ArrayList<Metodo> mList, int mode) {
+		if(!ran) {
+			int count = 0;
+			for(Metodo m: mList) {
+				data[count][0] = Integer.toString((int)m.getMethodID());
+				if(mode==0) {
+					data[count][1] = Boolean.toString(m.getRuleResult());
+				}
+				else if(mode==1) {
+					data[count][1] = DefectComparison(m.getRuleResult(), m.isiPlasma());
+				}
+				else if(mode==2) {
+					data[count][1] = DefectComparison(m.getRuleResult(), m.isPMD());
+				}
+				count++;
+			}
+			ran = true;
+		}
+	}
 	public void grabResults(ArrayList<Metodo> mList) {
 		if(!ran) {
 			int count = 0;
@@ -31,22 +60,37 @@ public class ResultRepresenter {
 			ran = true;
 		}
 	}
-	
-	public void grabResults(ArrayList<Metodo> ar, Rule rule) {
+	public void grabResults(ArrayList<Metodo> ar, Rule rule, int mode) {
 		if(!ran) {
 			this.rule = rule;
-			ArrayList<Metodo> arc = (ArrayList<Metodo>) ar.clone();
-			for (Metodo m: arc) {
+			for (Metodo m: ar) {
 				data[(int)m.getMethodID()-1][0] = Integer.toString((int)m.getMethodID());
-				if(rule.getMode().equals("Feature Envy")) data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getAtfd(), (int)m.getLaa()));
-				if(rule.getMode().equals("Long Method")) data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getLoc(), (int)m.getCyclo()));
+				if(rule.getMode().equals("Feature Envy")) {
+					data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getAtfd(), (int)m.getLaa()));
+					this.mode = "";
+				}
+				if(rule.getMode().equals("Long Method")) {
+					if(mode==0) {
+						data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getLoc(), (int)m.getCyclo()));
+						this.mode = "";
+					}
+					else if(mode==1) {
+						data[(int)m.getMethodID()-1][1] = DefectComparison(rule.runRule((int)m.getLoc(), (int)m.getCyclo()), m.isiPlasma());
+						this.mode = " compared with iPlasma";
+					}
+					else if(mode==2) {
+						data[(int)m.getMethodID()-1][1] = DefectComparison(rule.runRule((int)m.getLoc(), (int)m.getCyclo()), m.isPMD());
+						this.mode = " compared with PMD";
+					}
+					
+				}
 			}
 			ran = true;
 		}
 	}
 	
 	public void showWindow() {
-		frame = new JFrame(rule.getName());
+		frame = new JFrame(rule.getName()+mode);
 		table=new JTable(data,column);    
 		table.setBounds(30,40,200,300);       
 		sp=new JScrollPane(table);
@@ -55,5 +99,13 @@ public class ResultRepresenter {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setResizable(false);
+	}
+	
+	public Rule getRule() {
+		return rule;
+	}
+
+	public void setRule(Rule rule) {
+		this.rule = rule;
 	}
 }

@@ -45,10 +45,6 @@ public class InterfaceUser_thresholds {
 	private JComboBox<LogicParser> logicsym;
 	
 	private File file;
-	private static int count = 0;
-	private JTable jt;
-	private JScrollPane sp;
-	private String[][] data;
 	
 	public InterfaceUser_thresholds(File file) {
 		avisoUser = new JLabel("");
@@ -260,9 +256,10 @@ public class InterfaceUser_thresholds {
 
 	/* CONTEUDO PAINEL ZONA2 */
 	private void panelZona2(){
-		JLabel compare = new JLabel("Compare:");
-		JRadioButton r1 = new JRadioButton("is_long_method");
-		JRadioButton r2 = new JRadioButton("is_feature_envy");
+		JLabel compare = new JLabel("Compare (if Long Method):");
+		JRadioButton r1 = new JRadioButton("None");
+		JRadioButton r2 = new JRadioButton("iPlasma");
+		JRadioButton r3 = new JRadioButton("PMD");
 		JLabel with = new JLabel("With rule:");
 		
 		list = new JList<String>(listRules);
@@ -272,8 +269,19 @@ public class InterfaceUser_thresholds {
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(r1);
 		bg.add(r2);
+		bg.add(r3);
 		r1.setSelected(true);
-
+		ActionListener changedRadioButton = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				listRulz[list.getSelectedIndex()].setResult(null);
+			}
+		};
+		r1.addActionListener(changedRadioButton);
+		r2.addActionListener(changedRadioButton);
+		r3.addActionListener(changedRadioButton);
 		makeComparison.addActionListener(new ActionListener() {
 			LeituraFicheiro leitorDeFicheiros = new LeituraFicheiro(null);
 			
@@ -297,20 +305,33 @@ public class InterfaceUser_thresholds {
 
 				ArrayList<Metodo> ar = leitorDeFicheiros.createList();
 				
-				
-				
 				if(listRulz[list.getSelectedIndex()].getResult()==null) {
+					
 					listRulz[list.getSelectedIndex()].setResult(new ResultRepresenter());
-					listRulz[list.getSelectedIndex()].getResult().grabResults((ArrayList)ar.clone(),listRulz[list.getSelectedIndex()]);
+					
+					if(r1.isSelected()) {
+						
+			            System.out.println("Selected Radio Button: " + bg.getSelection().getActionCommand());
+						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],0);
+						
+					}
+					
+					if(r2.isSelected())
+						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],1);
+					
+					if(r3.isSelected())
+						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],2);
+					
 				}
+				
 				listRulz[list.getSelectedIndex()].getResult().showWindow();
 			}
 		} );
 		
 		JPanel p1 = new JPanel();
-		p1.setLayout(new GridLayout(2,1));
+		p1.setLayout(new GridLayout(3,1));
 		
-		zona2.add(avisoUser);
+//		zona2.add(avisoUser);
 		zona2.add(compare);
 		zona2.add(p1);
 		zona2.add(with);
@@ -319,6 +340,7 @@ public class InterfaceUser_thresholds {
 		
 		p1.add(r1);
 		p1.add(r2);
+		p1.add(r3);
 	}
 	
 	
