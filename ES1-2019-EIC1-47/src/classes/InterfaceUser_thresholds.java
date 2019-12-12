@@ -2,7 +2,9 @@ package classes;
 
 import java.awt.BorderLayout;
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +26,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
 public class InterfaceUser_thresholds {
@@ -30,75 +34,92 @@ public class InterfaceUser_thresholds {
 	private JFrame frame;
 	private JPanel zona1;
 	private JPanel zona2;
-	private JComboBox logicsym;
+	JLabel avisoUser;
+			
+	private JList<String> list;
 	private String[] listRules;
 	private Rule[] listRulz;
 	private int nextPos;
-	private String selectedComboBox;
+	
 	private int mode;
-	private JList<String> list;
+	private JComboBox<LogicParser> logicsym;
+	
 	private File file;
 	private static int count = 0;
 	private JTable jt;
 	private JScrollPane sp;
 	private String[][] data;
+	
 	public InterfaceUser_thresholds(File file) {
+		avisoUser = new JLabel("");
+		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
+		avisoUser.setForeground(Color.red);
 		this.file = file;
 		mode = 1;
-		selectedComboBox = "";
 		listRules = new String[15];
 //		listRules[0]="iPlasma;;;;is_long_method";
 //		listRules[1]="PMD;;;;is_long_method";
 		listRulz = new Rule[15];
-//		listRules[0]="iPlasma;;;;is_long_method";
-//		listRules[1]="PMD;;;;is_long_method";
-//		nextPos = 2;
 		showUI();
 	}
 
 	public InterfaceUser_thresholds() {
+		avisoUser = new JLabel("");
+		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
+		avisoUser.setForeground(Color.red);
 		mode = 1;
-		selectedComboBox = "";
 		listRules = new String[15];
-//		listRules[0]="iPlasma;;;;is_long_method";
-//		listRules[1]="PMD;;;;is_long_method";
 		listRulz = new Rule[15];
-//		listRules[0]="iPlasma;;;;is_long_method";
-//		listRules[1]="PMD;;;;is_long_method";
-//		nextPos = 2;
 		showUI();
-
 	}
 
+	
+/**
+ * Open User interface for Threshold addition and for Rule comparison
+ */
 	public void showUI() {
 		zona1 = new JPanel();
 		zona1.setLayout(new BorderLayout());
 		zona1.setBorder(BorderFactory.createEmptyBorder(30, 20, 20, 20));
 		zona2 = new JPanel();
-		zona2.setLayout(new GridLayout(5, 1));
+		zona2.setLayout(new GridLayout(6, 1));
 		frame = new JFrame();
 		frame.setLayout(new GridLayout(1, 2));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addFrameContent();
-		frame.setSize(600, 300);
+		frame.setSize(700, 400);
 		frame.setLocation(500, 100);
 	}
 
-	public void open() {
-		frame.setVisible(true);
-	}
-
+	
+/**
+ * Add panels to frame
+ */
 	public void addFrameContent() {
 		frame.add(zona1, BorderLayout.WEST);
 		frame.add(zona2, BorderLayout.EAST);
 		try {
 			panelZona1();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		panelZona2();
 	}
+	
+	
+/**
+ * Sets frame in visible state
+ */
+	public void open() {
+		frame.setVisible(true);
+	}
+
+	
+
+/**
+ * Adds content to left panel ("Create Rule")
+ * @throws Exception
+ */
 
 	/* CONTEUDO PAINEL ZONA1 */
 	private void panelZona1() throws Exception {
@@ -144,6 +165,14 @@ public class InterfaceUser_thresholds {
 		alAddRule(add, nametext, metric1text, metric2text, new LogicParser(logicsym.getSelectedIndex()));
 	}
 
+	
+	
+/**
+ * Action Listener of ComboBox (enables to choose between creating a is_long_method or feature_envy comparing rule)
+ * @param cb
+ * @param m1
+ * @param m2
+ */
 	/* ACTION LISTENER DA COMBOBOX */
 	private void alComboBox(JComboBox<String> cb, JLabel m1, JLabel m2) {
 
@@ -155,13 +184,11 @@ public class InterfaceUser_thresholds {
 				case "Long Method":
 					m1.setText("LOC >");
 					m2.setText("CYCLO >");
-					selectedComboBox = "is_long_method";
 					mode = 1;
 					break;
 				case "Feature Envy":
 					m1.setText("ATFD >");
 					m2.setText("LAA <");
-					selectedComboBox = "is_feature_envy";
 					mode = 0;
 					break;
 				default:
@@ -171,6 +198,15 @@ public class InterfaceUser_thresholds {
 		});
 	}
 
+	
+/**
+ * Action Listener of Button "Add Rule" that adds rule created by user (if valid) to Rules List
+ * @param b
+ * @param name
+ * @param m1
+ * @param m2
+ * @param lp
+ */
 	/* ACTION LISTENER DO BOTAO ADD RULE */
 	private void alAddRule(Button b, JTextField name, JTextField m1, JTextField m2, LogicParser lp) {
 
@@ -191,13 +227,20 @@ public class InterfaceUser_thresholds {
 					}
 					nextPos++;
 					list.updateUI();
+					setTextAviso("");
 				} else {
-					/* NICAS ADD EXCECAO */
+					setTextAviso("Nothing added: Select valid values");
 				}
 			}
 		});
 	}
 
+	
+/**
+ * Verifies if JTextField input given by user is a number
+ * @param x
+ * @return
+ */
 	/* FUNCAO AUXILIAR: VERIFICAR SE O CONTEUDO TEXTFIELD É UM NUMERO */
 	private boolean checkIfNumber(JTextField x) {
 		String s = x.getText();
@@ -209,6 +252,11 @@ public class InterfaceUser_thresholds {
 		}
 		return false;
 	}
+	
+
+/**
+ *  Adds content to right panel ("Compare")
+ */
 
 	/* CONTEUDO PAINEL ZONA2 */
 	private void panelZona2(){
@@ -216,9 +264,16 @@ public class InterfaceUser_thresholds {
 		JRadioButton r1 = new JRadioButton("is_long_method");
 		JRadioButton r2 = new JRadioButton("is_feature_envy");
 		JLabel with = new JLabel("With rule:");
+		
 		list = new JList<String>(listRules);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		Button makeComparison = new Button("Compare");
 		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(r1);
+		bg.add(r2);
+		r1.setSelected(true);
+
 		makeComparison.addActionListener(new ActionListener() {
 			LeituraFicheiro leitorDeFicheiros = new LeituraFicheiro(null);
 			
@@ -250,12 +305,12 @@ public class InterfaceUser_thresholds {
 				}
 				listRulz[list.getSelectedIndex()].getResult().showWindow();
 			}
-			
 		} );
 		
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(2,1));
 		
+		zona2.add(avisoUser);
 		zona2.add(compare);
 		zona2.add(p1);
 		zona2.add(with);
@@ -264,6 +319,11 @@ public class InterfaceUser_thresholds {
 		
 		p1.add(r1);
 		p1.add(r2);
+	}
+	
+	
+	private void setTextAviso(String s){
+		avisoUser.setText(s);
 	}
 
 	public static void main(String[] args) {
