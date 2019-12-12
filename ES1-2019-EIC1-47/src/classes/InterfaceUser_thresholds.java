@@ -276,6 +276,7 @@ public class InterfaceUser_thresholds {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(list.getSelectedIndex()!=-1)
 				listRulz[list.getSelectedIndex()].setResult(null);
 			}
 		};
@@ -287,6 +288,9 @@ public class InterfaceUser_thresholds {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				if(list.getSelectedIndex()!=-1) {
+					
 				
 				if(file!=null) {
 					leitorDeFicheiros = new LeituraFicheiro(file);
@@ -309,12 +313,8 @@ public class InterfaceUser_thresholds {
 					
 					listRulz[list.getSelectedIndex()].setResult(new ResultRepresenter());
 					
-					if(r1.isSelected()) {
-						
-			            System.out.println("Selected Radio Button: " + bg.getSelection().getActionCommand());
+					if(r1.isSelected()) 
 						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],0);
-						
-					}
 					
 					if(r2.isSelected())
 						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],1);
@@ -325,7 +325,10 @@ public class InterfaceUser_thresholds {
 				}
 				
 				listRulz[list.getSelectedIndex()].getResult().showWindow();
+				}
 			}
+			
+			
 		} );
 		
 		JPanel p1 = new JPanel();
