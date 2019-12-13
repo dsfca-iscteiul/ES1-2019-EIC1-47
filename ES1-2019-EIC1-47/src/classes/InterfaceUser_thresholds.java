@@ -32,7 +32,6 @@ public class InterfaceUser_thresholds {
 	private ButtonGroup bg;
 	private JRadioButton r1;
 	private JRadioButton r2;
-	private JRadioButton r3;
 	private JList<String> list;
 	private String[] listRules;
 	private Rule[] listRulz;
@@ -43,26 +42,45 @@ public class InterfaceUser_thresholds {
 	
 	private File file;
 	
-	public InterfaceUser_thresholds(File file) {
+	public InterfaceUser_thresholds(File file) throws Exception {
 		avisoUser = new JLabel("");
 		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
 		avisoUser.setForeground(Color.red);
 		this.file = file;
 		mode = 1;
+		
 		listRules = new String[15];
-//		listRules[0]="iPlasma;;;;is_long_method";
-//		listRules[1]="PMD;;;;is_long_method";
+
 		listRulz = new Rule[15];
+		list = new JList<String>(listRules);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		nextPos = 2;
+		listRulz[0] = new Rule("iPlasma", 0, 0, new LogicParser(0), 2);
+		listRulz[1] = new Rule("PMD", 0, 0, new LogicParser(0), 3);
+		listRules[0] = "iPlasma";
+		listRules[1] = "PMD";
+		list.updateUI();
 		showUI();
+		
 	}
 
-	public InterfaceUser_thresholds() {
+	public InterfaceUser_thresholds() throws Exception {
 		avisoUser = new JLabel("");
 		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
 		avisoUser.setForeground(Color.red);
 		mode = 1;
 		listRules = new String[15];
 		listRulz = new Rule[15];
+		list = new JList<String>(listRules);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		nextPos = 2;
+		listRulz[0] = new Rule("iPlasma", 0, 0, new LogicParser(0), 2);
+		listRulz[1] = new Rule("PMD", 0, 0, new LogicParser(0), 3);
+		listRules[0] = "iPlasma";
+		listRules[1] = "PMD";
+
+		list.updateUI();
+		
 		showUI();
 	}
 
@@ -177,16 +195,15 @@ public class InterfaceUser_thresholds {
 				String s = (String) cb.getSelectedItem();
 				switch (s) {
 				case "Long Method":
+					r1.setEnabled(true);
 					r2.setEnabled(true);
-					r3.setEnabled(true);
 					m1.setText("LOC >");
 					m2.setText("CYCLO >");
 					mode = 1;
 					break;
 				case "Feature Envy":
-					r1.setSelected(true);
-					r2.setEnabled(false);
-					r3.setEnabled(false);
+					r1.setSelected(false);
+					r2.setEnabled(true);
 					m1.setText("ATFD >");
 					m2.setText("LAA <");
 					mode = 0;
@@ -213,7 +230,7 @@ public class InterfaceUser_thresholds {
 		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				/* ADICIONAR VERIFICACAO SIMBOLO LOGICO */
-				if (!name.getText().equals("") && checkIfNumber(m1) && checkIfNumber(m2)) {
+				if (!name.getText().equals("") && !name.getText().equals("iPlasma") && !name.getText().equals("PMD") && checkIfNumber(m1) && checkIfNumber(m2)) {
 					try {
 						listRulz[nextPos] = new Rule(name.getText(), Integer.parseInt(m1.getText()),
 								Integer.parseInt(m2.getText()), new LogicParser(logicsym.getSelectedIndex()), mode);
@@ -260,33 +277,27 @@ public class InterfaceUser_thresholds {
 
 	/* CONTEUDO PAINEL ZONA2 */
 	private void panelZona2(){
-		JLabel compare = new JLabel("Compare (if Long Method):");
-		r1 = new JRadioButton("None");
-		r2 = new JRadioButton("iPlasma");
-		r3 = new JRadioButton("PMD");
+		JLabel compare = new JLabel("Compare:");
+		r1 = new JRadioButton("is_long_method");
+		r2 = new JRadioButton("is_feature_envy");
 		JLabel with = new JLabel("With rule:");
 		
-		list = new JList<String>(listRules);
-		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		Button makeComparison = new Button("Compare");
 		
 		bg = new ButtonGroup();
 		bg.add(r1);
 		bg.add(r2);
-		bg.add(r3);
 		r1.setSelected(true);
 		ActionListener changedRadioButton = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				if(list.getSelectedIndex()!=-1)
 				listRulz[list.getSelectedIndex()].setResult(null);
 			}
 		};
 		r1.addActionListener(changedRadioButton);
 		r2.addActionListener(changedRadioButton);
-		r3.addActionListener(changedRadioButton);
 		makeComparison.addActionListener(new ActionListener() {
 			LeituraFicheiro leitorDeFicheiros = new LeituraFicheiro(null);
 			
@@ -312,23 +323,39 @@ public class InterfaceUser_thresholds {
 				}
 
 				ArrayList<Metodo> ar = leitorDeFicheiros.createList();
+				//System.out.println(list.getSelectedIndex());
 				
 				if(listRulz[list.getSelectedIndex()].getResult()==null) {
+					System.out.println("hey");
 					
 					listRulz[list.getSelectedIndex()].setResult(new ResultRepresenter());
 					
-					if(r1.isSelected()) 
+					if(r1.isSelected()) { 
+						if(listRules[list.getSelectedIndex()].contains("PMD")) {
+							listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],3);
+							listRulz[list.getSelectedIndex()].getResult().showWindow();
+						} else if (listRules[list.getSelectedIndex()].contains("iPlasma")) {
+							listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],2);
+							listRulz[list.getSelectedIndex()].getResult().showWindow();
+						} else if(listRules[list.getSelectedIndex()].contains("Long Method")){
+							listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],1);
+							listRulz[list.getSelectedIndex()].getResult().showWindow();
+						}
+							
+					}
+						
+					
+					if(r2.isSelected() && listRules[list.getSelectedIndex()].contains("Feature Envy")) {
 						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],0);
-					
-					if(r2.isSelected())
-						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],1);
-					
-					if(r3.isSelected())
+						listRulz[list.getSelectedIndex()].getResult().showWindow();	
+					}
+				/*	if(r3.isSelected())
 						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],2);
+					*/
 					
+				
 				}
 				
-				listRulz[list.getSelectedIndex()].getResult().showWindow();
 				}
 			}
 			
@@ -347,7 +374,6 @@ public class InterfaceUser_thresholds {
 		
 		p1.add(r1);
 		p1.add(r2);
-		p1.add(r3);
 	}
 	
 	
@@ -355,7 +381,7 @@ public class InterfaceUser_thresholds {
 		avisoUser.setText(s);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		InterfaceUser_thresholds ui = new InterfaceUser_thresholds();
 		ui.open();
 	}

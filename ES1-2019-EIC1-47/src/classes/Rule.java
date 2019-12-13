@@ -4,7 +4,7 @@ package classes;
  * Date: Dec 12, 2019
  * This is a class that receives a Rule, with thresholds and a mode (being it Feature Envy or Long Method), 
  * and creates and runs a new RuleChecker accordingly.
- * @author Tomás Ferreira
+ * @author Tomï¿½s Ferreira
  */
 
 public class Rule {
@@ -28,7 +28,7 @@ public class Rule {
 	 * @throws Exception If the mode isn't recognized, the constructor will throw an exception.
 	 */
 	public Rule(String name, int Limit1, int Limit2, LogicParser lp, int mode) throws Exception {
-		if(mode!=1 && mode!=0) throw new Exception("unrecognized mode");
+		if(mode!=1 && mode!=0 && mode!=2 && mode!=3) throw new Exception("unrecognized mode");
 		this.name = name;
 		this.Limit1 = Limit1;
 		this.Limit2 = Limit2;
@@ -83,7 +83,7 @@ public class Rule {
 		// TODO Auto-generated method stub
 		if(mode==0) return name + ": Feature Envy: ATFD > " + Limit1 + " " + lp.toString() + " LAA < " + Limit2;
 		else if(mode==1) return name + ": Long Method: LOC > " + Limit1 + " " + lp.toString() + " CYCLO > " + Limit2;
-		return "Não Definido";
+		return "Nï¿½o Definido";
 	}
 
 	/**

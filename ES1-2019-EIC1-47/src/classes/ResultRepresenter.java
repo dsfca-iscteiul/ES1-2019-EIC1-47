@@ -9,7 +9,7 @@ import javax.swing.JTable;
 /**
  * Date: Dec 12, 2019
  * This class represents the results of the rule the user decides to run in a window.
- * @author Tomás Ferreira
+ * @author Tomï¿½s Ferreira
  */
 public class ResultRepresenter {
 	private JFrame frame;
@@ -51,22 +51,22 @@ public class ResultRepresenter {
 				data[(int)m.getMethodID()-1][0] = Integer.toString((int)m.getMethodID());
 				
 				if(rule.getMode().equals("Feature Envy")) {
-					data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getAtfd(), (int)m.getLaa()));
-					if(!this.mode.equals(""))this.mode = "";
+					data[(int)m.getMethodID()-1][1] = DefectComparison(rule.runRule((int)m.getAtfd(), (int)m.getLaa()), m.isIs_feature_envy());
+					if(!this.mode.equals(" compared with Feature Envy"))this.mode = " compared with Feature Envy";
 				}
 				
 				if(rule.getMode().equals("Long Method")) {
-					if(mode==0) {
-						data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getLoc(), (int)m.getCyclo()));
-						if(!this.mode.equals(""))this.mode = "";
-					}
-					else if(mode==1) {
-						data[(int)m.getMethodID()-1][1] = DefectComparison(rule.runRule((int)m.getLoc(), (int)m.getCyclo()), m.isiPlasma());
-						if(!this.mode.equals(" compared with iPlasma"))this.mode = " compared with iPlasma"; //addToCounter
+					if(mode==1) {
+						data[(int)m.getMethodID()-1][1] = DefectComparison(rule.runRule((int)m.getLoc(), (int)m.getCyclo()), m.isIs_long_method());
+						if(!this.mode.equals(" compared with Long Method"))this.mode = " compared with Long Method";
 					}
 					else if(mode==2) {
-						data[(int)m.getMethodID()-1][1] = DefectComparison(rule.runRule((int)m.getLoc(), (int)m.getCyclo()), m.isPMD());
-						if(!this.mode.equals(" compared with PMD"))this.mode = " compared with PMD";
+						data[(int)m.getMethodID()-1][1] = DefectComparison(m.isiPlasma(), m.isIs_long_method());
+						if(!this.mode.equals(" compared with Long Method"))this.mode = " compared with Long Method"; //addToCounter
+					}
+					else if(mode==3) {
+						data[(int)m.getMethodID()-1][1] = DefectComparison(m.isPMD(), m.isIs_long_method());
+						if(!this.mode.equals(" compared with Long Method"))this.mode = " compared with Long Method";
 					}
 					
 				}

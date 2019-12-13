@@ -157,8 +157,15 @@ public class InterfaceUser {
 		editThresholds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(file!=null) {
-					InterfaceUser_thresholds ui=new InterfaceUser_thresholds(file);
-					ui.open();
+					InterfaceUser_thresholds ui;
+					try {
+						ui = new InterfaceUser_thresholds(file);
+						ui.open();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					setTextAviso("");
 				}else{
 					setTextAviso("Select a valid file first");
