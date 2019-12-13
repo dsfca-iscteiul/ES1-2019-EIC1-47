@@ -168,17 +168,17 @@ public class LeituraFicheiro extends JPanel{
 					count++;
 					break;
 					
-				case BLANK:
-					count++;
-					break;
-				case ERROR:
-					break;
-				case FORMULA:
-					break;
-				case _NONE:
-					break;
-				default:
-					break;
+//				case BLANK:
+//					count++;
+//					break;
+//				case ERROR:
+//					break;
+//				case FORMULA:
+//					break;
+//				case _NONE:
+//					break;
+//				default:
+//					break;
 				}
 				linhas[countLinhas] = linha;
 			}
@@ -188,11 +188,10 @@ public class LeituraFicheiro extends JPanel{
 	}
 	
 	/**
-	 * Method to show the file conten in a table
+	 * Method to show the file content in a table
 	 */
 
 	public void ShowTable() {
-		
 		jt = new JTable(linhas, columns) {
 			// Determines if data can be entered by users
 			public boolean isCellEditable(int data, int columns){
@@ -215,6 +214,7 @@ public class LeituraFicheiro extends JPanel{
 		JScrollPane jps = new JScrollPane(jt);
 		add(jps);
 		createList(sheet);
+		System.out.println("p");
 	}
 	
 	/**
