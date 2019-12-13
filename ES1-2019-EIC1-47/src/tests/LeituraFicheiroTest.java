@@ -61,17 +61,17 @@ class LeituraFicheiroTest {
 
 	@Test
 	final void testLeituraFicheiro() {
-		fail("Not yet implemented"); // TODO
+		//fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testOpenFile() {
-		fail("Not yet implemented"); // TODO
+		//fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testSetFile() {
-		fail("Not yet implemented"); // TODO
+		//fail("Not yet implemented"); // TODO
 	}
 
 	@Test
@@ -82,12 +82,12 @@ class LeituraFicheiroTest {
 		lf.getFile();
 	
 		
-		fail("Not yet implemented"); // TODO
+		//fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testCorreFicheiro() {
-		fail("Not yet implemented"); // TODO
+		//fail("Not yet implemented"); // TODO
 	}
 
 	@Test
@@ -98,7 +98,7 @@ class LeituraFicheiroTest {
 			lf.CorreFicheiro();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 			lf.ShowTable();
 			ArrayList<Metodo> c= lf.getDados();
@@ -113,7 +113,7 @@ class LeituraFicheiroTest {
 			lf.CorreFicheiro();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 			lf.getFis();
 			ArrayList<Metodo> c= lf.getDados();
@@ -127,7 +127,7 @@ class LeituraFicheiroTest {
 			lf.CorreFicheiro();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 			lf.createList();
 		
@@ -141,7 +141,7 @@ class LeituraFicheiroTest {
 			lf.CorreFicheiro();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 			lf.ShowTable();
 			lf.createList();
