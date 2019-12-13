@@ -1,5 +1,7 @@
 package tests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
@@ -8,8 +10,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class MetodoTest {
+import classes.Metodo;
 
+
+class MetodoTest {
+	Metodo m;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -20,6 +26,8 @@ class MetodoTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
+		m= new Metodo();
+		m.setPackage1("H");
 	}
 
 	@AfterEach
@@ -27,148 +35,152 @@ class MetodoTest {
 	}
 
 	@Test
-	final void testSetloc() {
-		fail("Not yet implemented"); // TODO
+	void testSetloc() {
+		
 	}
 
 	@Test
 	final void testIsiPlasma() {
-		fail("Not yet implemented"); // TODO
+		boolean b= m.isiPlasma();
+		assertEquals(false,b);
 	}
 
 	@Test
 	final void testSetiPlasma() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testIsIs_feature_envy() {
-		fail("Not yet implemented"); // TODO
+		boolean b=m.isIs_feature_envy();
+		assertEquals(false, b);
 	}
 
 	@Test
 	final void testSetIs_feature_envy() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testToString() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testMetodo() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testGetMethodID() {
-		fail("Not yet implemented"); // TODO
+		double s= m.getMethodID();
+		assertTrue(s==m.getMethodID());
 	}
+	
 
 	@Test
 	final void testSetMethodID() {
-		fail("Not yet implemented"); // TODO
+		double s = 3;
+		m.setMethodID(s);
+		assertTrue(s==m.getMethodID());
 	}
 
 	@Test
 	final void testGetPackage1() {
-		fail("Not yet implemented"); // TODO
+		String s= m.getPackage1();
+		assertEquals(s,m.getPackage1());
 	}
 
 	@Test
 	final void testSetPackage1() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	@Test
 	final void testGetClass1() {
-		fail("Not yet implemented"); // TODO
+		String s= m.getClass1();
+		assertEquals(s,m.getClass1());
 	}
 
 	@Test
 	final void testSetClass1() {
-		fail("Not yet implemented"); // TODO
+		
 	}
 
 	@Test
 	final void testGetMethod() {
-		fail("Not yet implemented"); // TODO
+		String s= m.getMethod();
+		assertEquals(s,m.getMethod());
 	}
 
 	@Test
 	final void testSetMethod() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testGetLoc() {
-		fail("Not yet implemented"); // TODO
+		double s= m.getLoc();
+		assertTrue(s==m.getLoc());
 	}
 
 	@Test
 	final void testSetLoc() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testGetCyclo() {
-		fail("Not yet implemented"); // TODO
+		double s= m.getCyclo();
+		assertTrue(s==m.getCyclo());
 	}
 
 	@Test
 	final void testSetCyclo() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testGetAtfd() {
-		fail("Not yet implemented"); // TODO
+		double s= m.getAtfd();
+		assertTrue(s==m.getAtfd());
 	}
 
 	@Test
 	final void testSetAtfd() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testGetLaa() {
-		fail("Not yet implemented"); // TODO
+		double s= m.getLaa();
+		assertTrue(s==m.getLaa());
 	}
 
 	@Test
 	final void testSetLaa() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testIsIs_long_method() {
-		fail("Not yet implemented"); // TODO
+		boolean c=m.isIs_long_method();
+		assertEquals(false,c);
 	}
 
 	@Test
 	final void testSetIs_long_method() {
-		fail("Not yet implemented"); // TODO
+		
 	}
-
 	@Test
 	final void testIsPMD() {
-		fail("Not yet implemented"); // TODO
+		boolean c=m.isPMD();
+		assertEquals(false,c);
 	}
 
 	@Test
 	final void testSetPMD() {
-		fail("Not yet implemented"); // TODO
 	}
 
 	@Test
 	final void testGetRuleResult() {
-		fail("Not yet implemented"); // TODO
+		boolean c=m.getRuleResult();
+		assertEquals(false,c);
 	}
 
 	@Test
 	final void testSetRuleResult() {
-		fail("Not yet implemented"); // TODO
 	}
 
 }
