@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
@@ -281,6 +282,7 @@ public class InterfaceUser_thresholds {
 		r1 = new JRadioButton("is_long_method");
 		r2 = new JRadioButton("is_feature_envy");
 		JLabel with = new JLabel("With rule:");
+		JScrollPane scrollPane = new JScrollPane(list);
 		
 		Button makeComparison = new Button("Compare");
 		
@@ -369,7 +371,7 @@ public class InterfaceUser_thresholds {
 		zona2.add(compare);
 		zona2.add(p1);
 		zona2.add(with);
-		zona2.add(list);
+		zona2.add(scrollPane);
 		zona2.add(makeComparison);
 		
 		p1.add(r1);
