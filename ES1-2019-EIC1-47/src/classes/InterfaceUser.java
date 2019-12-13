@@ -172,8 +172,12 @@ public class InterfaceUser {
 	/**
 	 * Method to change content of JLabel "avisoUser"
 	 */
-	private void setTextAviso(String s){
+	public void setTextAviso(String s){
 		avisoUser.setText(s);
+	}
+	
+	public String getAviso(){
+		return avisoUser.getText();
 	}
 	
 	/**

@@ -56,17 +56,37 @@ class InterfaceUserTest {
 		try {
 			iu.open();
 		} catch (Exception e) {
-			
+
 		}
 		assertNotNull(iu);
 	}
 
 	/**
-	 * Test method for {@link classes.InterfaceUser#InterfaceUser()}.
+	 * Test method for {@link classes.InterfaceUser#setAviso(String s)}.
 	 */
 	@Test
-	final void testInterfaceUser() {
-		fail("Not yet implemented"); // TODO
+	final void testSetTextAviso() {
+		InterfaceUser gui = new InterfaceUser();
+		try {
+			gui.setTextAviso("");
+		} catch (Exception e) {
+			
+		}
+		assertEquals("", gui.getAviso());
+	}
+	
+	/**
+	 * Test method for {@link classes.InterfaceUser#getAviso()}.
+	 */
+	@Test
+	final void testGetTextAviso() {
+		InterfaceUser menu = new InterfaceUser();
+		try {
+			menu.setTextAviso("");
+		} catch (Exception e) {
+			
+		}
+		assertEquals("", menu.getAviso());
 	}
 
 }
