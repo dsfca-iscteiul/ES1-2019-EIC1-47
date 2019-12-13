@@ -91,6 +91,7 @@ public class InterfaceUser_thresholds {
 	private JLabel avisoUser;
 	
 	//
+	//
 	/**
 	 * Constructor 1: called in InterfaceUser
 	 * @param file
