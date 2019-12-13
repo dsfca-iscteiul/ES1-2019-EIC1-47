@@ -60,7 +60,7 @@ public class LeituraFicheiro extends JPanel{
 	
 	/**
 	 * 
-	 * @return dados the list made of information of the file
+	 * @return  the list made of information of the file
 	 */
 	public static ArrayList<Metodo> getDados() {
 		return dados;
@@ -76,6 +76,7 @@ public class LeituraFicheiro extends JPanel{
 	/**
 	 * 
 	 * @param file- the file we want to read
+	 * the constructor of the class with the file
 	 */
 	// construtor
 	public LeituraFicheiro(File file) {
@@ -83,14 +84,14 @@ public class LeituraFicheiro extends JPanel{
 	}
 	
 	/**
-	 * 
+	 * the constructor of the class without the file
 	 */
 	public LeituraFicheiro() {
 	}
 
 	
 	/**
-	 * 
+	 * this method opens allow us to choose and select the file 
 	 * @return file
 	 */
 	//metodo para criar um fileChooser(que nos da opcao para escolher o ficheiro)
@@ -107,7 +108,7 @@ public class LeituraFicheiro extends JPanel{
 	/**
 	 * 
 	 * @param file-the file we want to read
-	 * set file allow us to choose the file we want to read
+	 * set the file we want to read
 	 */
 	public void setFile(File file) {
 		this.file = file;
@@ -115,7 +116,7 @@ public class LeituraFicheiro extends JPanel{
 	
 	/**
 	 * 
-	 * @return the file we want to read
+	 * @return the file we have in the class
 	 */
 	public File getFile() {
 		return file;
