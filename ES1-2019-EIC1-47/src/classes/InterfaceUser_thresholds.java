@@ -92,6 +92,7 @@ public class InterfaceUser_thresholds {
 	
 	//
 	//
+	//
 	/**
 	 * Constructor 1: called in InterfaceUser
 	 * @param file
