@@ -11,6 +11,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import classes.InterfaceUser;
+
 /**
  * @author Catarina Teodoro
  *
@@ -50,7 +52,13 @@ class InterfaceUserTest {
 	 */
 	@Test
 	final void testMain() {
-		fail("Not yet implemented"); // TODO
+		InterfaceUser iu = new InterfaceUser();
+		try {
+			iu.open();
+		} catch (Exception e) {
+			
+		}
+		assertNotNull(iu);
 	}
 
 	/**

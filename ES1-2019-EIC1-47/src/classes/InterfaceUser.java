@@ -179,7 +179,7 @@ public class InterfaceUser {
 	/**
 	 * Method to open InterfaceUser.
 	 */
-	private void open(){
+	public void open(){
 		
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setSize(300, 400);
