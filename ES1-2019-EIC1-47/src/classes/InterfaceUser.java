@@ -51,10 +51,6 @@ public class InterfaceUser {
 	 */
 	private JButton editThresholds;
 	/**
-	 * JButton to test different platforms.
-	 */
-	private JButton testPlatform;
-	/**
 	 * JPanel for center of JFrame.
 	 */
 	private JPanel center;
@@ -70,10 +66,6 @@ public class InterfaceUser {
 	 * JPanel for editThresholds button.
 	 */
 	private JPanel b3;
-	/**
-	 * JPanel for testPlatform button.
-	 */
-	private JPanel b4;
 	/**
 	 * File we want to analyze.
 	 */
@@ -98,24 +90,20 @@ public class InterfaceUser {
 		b1 = new JPanel();
 		b2 = new JPanel();
 		b3 = new JPanel();
-		b4 = new JPanel();
 		center.setLayout(new GridLayout(5,1,0,0));
 		b1.setLayout(new FlowLayout());
 		b2.setLayout(new FlowLayout());
 		b3.setLayout(new FlowLayout());
-		b4.setLayout(new FlowLayout());
 		
 		menu = new JLabel("MENU", SwingConstants.CENTER);
 		avisoUser = new JLabel("", SwingConstants.CENTER);
 		openFile = new JButton("Select file to analize");
 		showFile = new JButton("Show file");
 		editThresholds = new JButton("Edit thresholds");
-		testPlatform = new JButton("Show results");
 		
 		openFile.setPreferredSize(new Dimension(200,50));
 		showFile.setPreferredSize(new Dimension(200,50));
 		editThresholds.setPreferredSize(new Dimension(200,50));
-		testPlatform.setPreferredSize(new Dimension(200,50));
 		
 		menu.setPreferredSize(new Dimension(100,100));
 		menu.setFont(new Font("Courier", Font.BOLD, 40));
@@ -126,11 +114,9 @@ public class InterfaceUser {
 		b1.add(openFile);
 		b2.add(showFile);
 		b3.add(editThresholds);
-//		b4.add(testPlatform);
 		center.add(b1);
 		center.add(b2);
 		center.add(b3);
-		center.add(b4);
 		center.add(avisoUser);
 		
 		frame.add(menu, BorderLayout.NORTH);
@@ -177,12 +163,6 @@ public class InterfaceUser {
 				}else{
 					setTextAviso("Select a valid file first");
 				}
-			}
-		});
-		
-		testPlatform.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//adicionar m�todo de ac��o do bot�o
 			}
 		});
 		
