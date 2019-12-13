@@ -30,10 +30,9 @@ public class ResultRepresenter {
 	 */
 	private String DefectComparison(boolean rule, boolean external) {
 		if(rule && external) return "DCI";
-		if(rule && !external) return "ADII";
-		if(!rule && external) return "DII";
-		if(!rule && !external) return "ADCI";
-		return null;
+		else if(rule && !external) return "ADII";
+		else if(!rule && external) return "DII";
+		else return "ADCI";
 	}
 	
 	/**
@@ -51,7 +50,7 @@ public class ResultRepresenter {
 				
 				if(rule.getMode().equals("Feature Envy")) {
 					data[(int)m.getMethodID()-1][1] = Boolean.toString(rule.runRule((int)m.getAtfd(), (int)m.getLaa()));
-					this.mode = "";
+					if(!this.mode.equals(""))this.mode = "";
 				}
 				
 				if(rule.getMode().equals("Long Method")) {
@@ -98,7 +97,7 @@ public class ResultRepresenter {
 		sp=new JScrollPane(table);
 		sp.setSize(300,400);
 		JLabel jta = new JLabel();
-		if(mode.equals(""))jta.setText("<html><div style='text-align: center;'>" + "False: " + countStrings("false") + "  True: " + countStrings("true") + "</div></html>");
+		jta.setText("<html><div style='text-align: center;'>" + "False: " + countStrings("false") + "  True: " + countStrings("true") + "</div></html>");
 		if(!mode.equals(""))jta.setText("<html><div style='text-align: center;'>" + "DCI: " + countStrings("DCI") + " DII: " + countStrings("DII") + " ADCI: " + countStrings("ADCI") + " ADII: " + countStrings("ADII") + "</div></html>");
 		jta.setVisible(true);
 		BoxLayout boxLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
@@ -119,7 +118,15 @@ public class ResultRepresenter {
 	public Rule getRule() {
 		return rule;
 	}
-
+	
+	
+	/**
+	 * This functions resets the variable ran
+	 */
+	public void resetRan() {
+		this.ran = false;
+	}
+	
 	/**
 	 * This function sets a different rule to this Object.
 	 * @param rule
