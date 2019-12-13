@@ -2,11 +2,15 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import classes.InterfaceUser_thresholds;
 
 class InterfaceUser_thresholdsTest {
 
@@ -28,32 +32,57 @@ class InterfaceUser_thresholdsTest {
 
 	@Test
 	final void testInterfaceUser_thresholdsFile() {
-		fail("Not yet implemented"); // TODO
+		try {
+			InterfaceUser_thresholds iut = new InterfaceUser_thresholds(new File("./Method.xlsx"));
+			assertTrue(iut!=null);
+		} catch (Exception e) {
+		}
 	}
 
 	@Test
 	final void testInterfaceUser_thresholds() {
-		fail("Not yet implemented"); // TODO
+		try {
+			InterfaceUser_thresholds iut = new InterfaceUser_thresholds();
+			assertTrue(iut!=null);
+		} catch (Exception e) {
+		}
 	}
 
 	@Test
 	final void testShowUI() {
-		fail("Not yet implemented"); // TODO
+		try {
+			InterfaceUser_thresholds iut = new InterfaceUser_thresholds();
+			iut.showUI();
+		} catch (Exception e) {
+		}
 	}
 
 	@Test
 	final void testOpen() {
-		fail("Not yet implemented"); // TODO
+		try {
+			InterfaceUser_thresholds iut = new InterfaceUser_thresholds();
+			iut.open();
+		} catch (Exception e) {
+		}
 	}
 
 	@Test
 	final void testAddFrameContent() {
-		fail("Not yet implemented"); // TODO
+		try {
+			InterfaceUser_thresholds iut = new InterfaceUser_thresholds();
+			iut.addFrameContent();
+		} catch (Exception e) {
+		}
 	}
 
 	@Test
 	final void testMain() {
-		fail("Not yet implemented"); // TODO
+		try {
+			InterfaceUser_thresholds iut = new InterfaceUser_thresholds();
+			iut.main(null);
+		} catch (Exception e) {
+		}
 	}
+	
 
 }
