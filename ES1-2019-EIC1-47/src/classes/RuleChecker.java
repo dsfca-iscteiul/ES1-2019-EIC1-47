@@ -45,7 +45,6 @@ public class RuleChecker {
 			if (logic.compare((AFTD > AFTDLimit), (LAA < LAALimit)))
 			return true;
 		}catch (Exception e) {
-			return false;
 		}
 		return false;
 	}
@@ -88,7 +87,6 @@ public class RuleChecker {
 			if (logic.compare((LOC > LOCLimit), (CYCLO > CYCLOLimit)))
 			return true;
 		} catch (Exception e) {
-			return false;
 		}
 		return false;
 	}

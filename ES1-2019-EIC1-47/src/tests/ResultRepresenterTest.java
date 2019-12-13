@@ -149,6 +149,10 @@ class ResultRepresenterTest {
 			rule.setMode(Rule.longMethod);
 			rr.grabResults(ar, rule, 0);
 			rr.showWindow();
+			rule.setLp(new LogicParser(LogicParser.AND));
+			rule.setMode(Rule.featureEnvy);
+			rr.grabResults(ar, rule, 0);
+			rr.showWindow();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

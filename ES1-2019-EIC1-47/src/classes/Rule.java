@@ -28,13 +28,12 @@ public class Rule {
 	 * @throws Exception If the mode isn't recognized, the constructor will throw an exception.
 	 */
 	public Rule(String name, int Limit1, int Limit2, LogicParser lp, int mode) throws Exception {
-		if(mode>1 || mode < 0) throw new Exception("unrecognized mode");
+		if(mode!=1 && mode!=0) throw new Exception("unrecognized mode");
 		this.name = name;
 		this.Limit1 = Limit1;
 		this.Limit2 = Limit2;
 		this.mode = mode;
 		this.lp = lp;
-		
 	}
 	
 	/**
@@ -47,14 +46,13 @@ public class Rule {
 	 * @throws Exception If the mode isn't recognized, the constructor will throw an exception.
 	 */
 	public Rule(String name, int Limit1, int Limit2, LogicParser lp, String mode) throws Exception {
+		if(mode.equals("is_long_method")) this.mode=1;
+		else if(mode.equals("is_feature_envy")) this.mode=0;
 		if(!mode.equals("is_long_method") && !mode.equals("is_feature_envy")) throw new Exception("unrecognized mode");
 		this.name = name;
 		this.Limit1 = Limit1;
 		this.Limit2 = Limit2;
 		this.lp = lp;
-		if(mode.equals("is_long_method")) this.mode=1;
-		else if(mode.equals("is_feature_envy")) this.mode=0;
-		
 	}
 	
 	
@@ -71,7 +69,6 @@ public class Rule {
 			if(mode==0) return new RuleChecker().featureEnvyCheck(param1, param2,Limit1,Limit2,lp);
 			else if(mode==1) return new RuleChecker().longMethodCheck(param1, param2,Limit1,Limit2,lp);
 		} catch(Exception e) {
-			e.printStackTrace();
 		}
 		return false;
 	}

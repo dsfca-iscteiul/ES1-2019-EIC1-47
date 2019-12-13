@@ -29,10 +29,12 @@ public class ResultRepresenter {
 	 * @return Defect indicator.
 	 */
 	private String DefectComparison(boolean rule, boolean external) {
-		if(rule && external) return "DCI";
-		else if(rule && !external) return "ADII";
-		else if(!rule && external) return "DII";
-		else return "ADCI";
+		if(rule) {
+			if(external)return "DCI";
+			return "ADII";
+		}
+		if(external) return "DII";
+		return "ADCI";
 	}
 	
 	/**
