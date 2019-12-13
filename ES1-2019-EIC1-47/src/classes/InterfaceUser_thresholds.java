@@ -24,25 +24,78 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
+/**
+ * Date: Nov 93, 2019
+ * Frame de adicao de regras e sua comparacao
+ * @author Daniela Correia
+ * 
+ */
+
 public class InterfaceUser_thresholds {
 
+	/**
+	 * Frame for editing thresholds
+	 */
 	private JFrame frame;
+	/**
+	 * left panel (Add Rule)
+	 */
 	private JPanel zona1;
+	/**
+	 * right panel (Compare rule)
+	 */
 	private JPanel zona2;
-	private JLabel avisoUser;
+	/**
+	 * Group of radio Buttons
+	 */
 	private ButtonGroup bg;
+	/**
+	 * radio button Long method
+	 */
 	private JRadioButton r1;
+	/**
+	 * radio button Feature envy
+	 */
 	private JRadioButton r2;
+	/**
+	 * JList of rules
+	 */
 	private JList<String> list;
+	/**
+	 * array inside JList
+	 */
 	private String[] listRules;
+	/**
+	 * list of class Rules
+	 */
 	private Rule[] listRulz;
+	/**
+	 * next JList position available
+	 */
 	private int nextPos;
-	
+	/**
+	 * type of comparison
+	 */
 	private int mode;
+	/**
+	 * JComboBox of logic parsers available
+	 */
 	private JComboBox<LogicParser> logicsym;
-	
+	/**
+	 * user excel file
+	 */
 	private File file;
+	/**
+	 * warning sent to user
+	 */
+	private JLabel avisoUser;
 	
+	
+	/**
+	 * Constructor 1: called in InterfaceUser
+	 * @param file
+	 * @throws Exception
+	 */
 	public InterfaceUser_thresholds(File file) throws Exception {
 		avisoUser = new JLabel("");
 		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
@@ -65,6 +118,10 @@ public class InterfaceUser_thresholds {
 		
 	}
 
+	/**
+	 * Constructor 2: used for testing class
+	 * @throws Exception
+	 */
 	public InterfaceUser_thresholds() throws Exception {
 		avisoUser = new JLabel("");
 		avisoUser.setFont(new Font("Courier", Font.ITALIC, 15));
