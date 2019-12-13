@@ -126,7 +126,7 @@ public class InterfaceUser {
 		b1.add(openFile);
 		b2.add(showFile);
 		b3.add(editThresholds);
-		b4.add(testPlatform);
+//		b4.add(testPlatform);
 		center.add(b1);
 		center.add(b2);
 		center.add(b3);
@@ -202,7 +202,7 @@ public class InterfaceUser {
 	private void open(){
 		
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setSize(500, 500);
+		frame.setSize(300, 400);
 		frame.setResizable(false);
 		frame.setVisible(true);
 		

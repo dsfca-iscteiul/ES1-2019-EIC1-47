@@ -122,8 +122,8 @@ public class InterfaceUser_thresholds {
 		JComboBox<String> comboBox = new JComboBox<String>(options);
 		JLabel metric1 = new JLabel("LOC >");
 		JLabel metric2 = new JLabel(" CYCLO >");
-		JTextField metric1text = new JTextField(1);
-		JTextField metric2text = new JTextField(1);
+		JTextField metric1text = new JTextField(3);
+		JTextField metric2text = new JTextField(3);
 		
 		try {
 			LogicParser[] lp = { new LogicParser(0), new LogicParser(1), new LogicParser(2), new LogicParser(3) };
