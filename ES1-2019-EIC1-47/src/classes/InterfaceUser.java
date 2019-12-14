@@ -101,9 +101,9 @@ public class InterfaceUser {
 		showFile = new JButton("Show file");
 		editThresholds = new JButton("Edit thresholds");
 		
-		openFile.setPreferredSize(new Dimension(200,50));
-		showFile.setPreferredSize(new Dimension(200,50));
-		editThresholds.setPreferredSize(new Dimension(200,50));
+		openFile.setPreferredSize(new Dimension(240,60));
+		showFile.setPreferredSize(new Dimension(240,60));
+		editThresholds.setPreferredSize(new Dimension(240,60));
 		
 		menu.setPreferredSize(new Dimension(100,100));
 		menu.setFont(new Font("Courier", Font.BOLD, 40));
@@ -183,6 +183,10 @@ public class InterfaceUser {
 		avisoUser.setText(s);
 	}
 	
+	/**
+	 * Method that shows warning to User
+	 * @return
+	 */
 	public String getAviso(){
 		return avisoUser.getText();
 	}
@@ -193,7 +197,7 @@ public class InterfaceUser {
 	public void open(){
 		
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.setSize(300, 400);
+		frame.setSize(400, 450);
 		frame.setResizable(false);
 		frame.setVisible(true);
 		

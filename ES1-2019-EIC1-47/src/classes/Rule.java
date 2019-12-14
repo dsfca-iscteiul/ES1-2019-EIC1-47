@@ -80,7 +80,6 @@ public class Rule {
 	 */
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		if(mode==0) return name + ": Feature Envy: ATFD > " + Limit1 + " " + lp.toString() + " LAA < " + Limit2;
 		else if(mode==1) return name + ": Long Method: LOC > " + Limit1 + " " + lp.toString() + " CYCLO > " + Limit2;
 		return "N�o Definido";

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -21,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 /**
  * 
- * @author Allan Wá
+ * @author Allan Wï¿½
  * Date:11/12/2019
  *
  */
@@ -168,18 +167,6 @@ public class LeituraFicheiro extends JPanel{
 					else linha[count]= Boolean.toString(cell.getBooleanCellValue());
 					count++;
 					break;
-					
-//				case BLANK:
-//					count++;
-//					break;
-//				case ERROR:
-//					break;
-//				case FORMULA:
-//					break;
-//				case _NONE:
-//					break;
-//				default:
-//					break;
 				}
 				linhas[countLinhas] = linha;
 			}
@@ -199,8 +186,8 @@ public class LeituraFicheiro extends JPanel{
 				return false;
 			}
 		};
+		
 		// Creates Table
-
 		jt.setRowHeight(20);
 		for(int i = 0; i < 12; i++) {
 			jt.getColumnModel().getColumn(i).setWidth(100);;

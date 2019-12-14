@@ -90,9 +90,7 @@ public class InterfaceUser_thresholds {
 	 */
 	private JLabel avisoUser;
 	
-	//
-	//
-	//
+
 	/**
 	 * Constructor 1: called in InterfaceUser
 	 * @param file
@@ -158,8 +156,8 @@ public class InterfaceUser_thresholds {
 		frame.setLayout(new GridLayout(1, 2));
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		addFrameContent();
-		frame.setSize(700, 400);
-		frame.setLocation(500, 100);
+		frame.setSize(720, 400);
+		frame.setLocation(400, 73);
 	}
 
 	
@@ -384,10 +382,8 @@ public class InterfaceUser_thresholds {
 				}
 
 				ArrayList<Metodo> ar = leitorDeFicheiros.createList();
-				//System.out.println(list.getSelectedIndex());
 				
 				if(listRulz[list.getSelectedIndex()].getResult()==null) {
-					System.out.println("hey");
 					
 					listRulz[list.getSelectedIndex()].setResult(new ResultRepresenter());
 					
@@ -402,42 +398,41 @@ public class InterfaceUser_thresholds {
 							listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],1);
 							listRulz[list.getSelectedIndex()].getResult().showWindow();
 						}
+						setTextAviso("");
 							
-					}
 						
-					
-					if(r2.isSelected() && listRules[list.getSelectedIndex()].contains("Feature Envy")) {
+					}if(r2.isSelected() && listRules[list.getSelectedIndex()].contains("Feature Envy")) {
 						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],0);
 						listRulz[list.getSelectedIndex()].getResult().showWindow();	
+						setTextAviso("");
+						
+					} else if((r1.isSelected() && listRules[list.getSelectedIndex()].contains("Feature Envy")) 
+							|| (r2.isSelected() && !listRules[list.getSelectedIndex()].contains("Feature Envy"))) {
+							setTextAviso("Invalid Comparison");
 					}
-				/*	if(r3.isSelected())
-						listRulz[list.getSelectedIndex()].getResult().grabResults(ar,listRulz[list.getSelectedIndex()],2);
-					*/
-					
-				
-				}
-				
 				}
 			}
-			
-			
+		}
 		} );
 		
 		JPanel p1 = new JPanel();
 		p1.setLayout(new GridLayout(3,1));
 		
-//		zona2.add(avisoUser);
 		zona2.add(compare);
 		zona2.add(p1);
 		zona2.add(with);
 		zona2.add(scrollPane);
 		zona2.add(makeComparison);
-		
+		zona2.add(avisoUser);
 		p1.add(r1);
 		p1.add(r2);
 	}
 	
 	
+/**
+ * Modifies content of user warning
+ * @param s
+ */
 	private void setTextAviso(String s){
 		avisoUser.setText(s);
 	}
