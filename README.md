@@ -1,3 +1,6 @@
+
+Projeto no ambito da cadeira ES1 (Engenharia de Software) efetuado pelos alunos do ISCTE-IUL
+
 GRUPO: ES1-2019-EIC1-47
 
 MEMBROS:
